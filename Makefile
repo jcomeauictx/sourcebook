@@ -8,7 +8,9 @@ endif
 test: convert
 	./$< $(FILES)
 clean:
-	rm -f *.pdf *.aux *.log listing.tex
+	rm -f *.aux *.log *.toc listing.tex samplebook.*
+distclean: clean
+	rm -f $(REPONAME).pdf $(REPONAME).tex
 env:
 ifeq ($(SHOWENV),)
 	$(MAKE) SHOWENV=1 $@
