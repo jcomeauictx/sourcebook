@@ -17,3 +17,6 @@ ifeq ($(SHOWENV),)
 else
 	$@
 endif
+push:
+	git push -u origin master
+	git push -u githost master
