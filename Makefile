@@ -4,6 +4,7 @@ AUTHOR ?= lotecnotec press
 FILES ?= $(shell cd ../$(REPONAME) && git ls-files)
 PARTS := $(REPONAME).bookstart.tex $(REPONAME).intro.tex \
  $(REPONAME).trailer.tex
+SUFFIXES := $(suffix $(FILES))
 ifeq ($(SHOWENV),)
 	# not exporting all globals---but at least those needed by templates
 	export REPONAME AUTHOR BOOKTITLE
