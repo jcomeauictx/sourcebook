@@ -1,6 +1,7 @@
 REPONAME ?= xacpi
 BOOKTITLE ?= $(REPONAME)
-AUTHOR ?= lotecnotec press
+AUTHOR ?= John Otis Comeau
+PUBLISHER ?= lotecnotec press
 FILES ?= $(shell cd ../$(REPONAME) && git ls-files)
 PARTS := $(REPONAME).bookstart.tex $(REPONAME).intro.tex \
  $(REPONAME).sources.tex
@@ -22,7 +23,7 @@ SUFFIX := $(suffix $(FILENAME))
 LANGUAGE := $(or $($(SUFFIX)),$($(FILENAME)))
 ifeq ($(SHOWENV),)
 	# not exporting all globals---but at least those needed by templates
-	export REPONAME AUTHOR BOOKTITLE LANGUAGE LISTING FILEPATH
+	export REPONAME AUTHOR PUBLISHER BOOKTITLE LANGUAGE LISTING FILEPATH
 else
 	export
 endif
