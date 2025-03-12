@@ -1,11 +1,11 @@
 BUILD ?= xacpi
+MAKE := make -s
 REPONAME ?= $(BUILD:$(suffix $(BUILD))=)
 BOOKTITLE ?= $(REPONAME)
 AUTHOR ?= John Otis Comeau
 PUBLISHER ?= lotecnotec press
 FILES ?= $(shell cd ../$(REPONAME) && git ls-files)
-PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex \
- $(BUILD).sources.tex
+PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).sources.tex
 FINAL_PART := $(BUILD).trailer.tex
 # mapping suffixes to languages
 .sh := bash
@@ -31,7 +31,7 @@ endif
 all: $(BUILD).view $(BUILD).save
 $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
-	for file in $(FILES); do $(MAKE) LISTING=$$file -s texout >> $@; done
+	for file in $(FILES); do $(MAKE) LISTING=$$file texout >> $@; done
 	cat $| >> $@
 %.cover.jpg: %.cover.pdf
 	pdftoppm $< | ppmtojpeg > $@
