@@ -26,20 +26,23 @@ ifeq ($(SHOWENV),)
 else
 	export
 endif
-all: $(REPONAME).view
+all: $(REPONAME).view $(REPONAME).save
 $(REPONAME).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
 	for file in $(FILES); do $(MAKE) LISTING=$$file -s texout >> $@; done
 	cat $| >> $@
+%.save: %.pdf
+	mkdir -p $(HOME)/sourcebook
+	cp -f $< $(HOME)/sourcebook/
 texout: source.template.tex
 	envsubst < $<
 test: convert
 	./$< $(FILES)
 clean:
-	rm -f *.aux *.log *.toc listing.tex overleaf_book.pdf *.lua *.out
+	rm -f *.aux *.log *.toc *.lua *.out
 	rm -rf _markdown_*
 distclean: clean
-	rm -f $(REPONAME).pdf $(REPONAME).*.tex $(REPONAME).tex
+	rm -f *.pdf $(filter-out $(wildcard *.template.tex), $(wildcard *.tex))
 env:
 ifeq ($(SHOWENV),)
 	$(MAKE) SHOWENV=1 $@
