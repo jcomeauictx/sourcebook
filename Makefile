@@ -31,9 +31,11 @@ $(REPONAME).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
 	for file in $(FILES); do $(MAKE) LISTING=$$file -s texout >> $@; done
 	cat $| >> $@
-%.save: %.pdf
+$(REPONAME).cover.jpg: $(REPONAME).cover.pdf
+	pdftoppm $< | ppmtojpeg > $@
+%.save: %.pdf %.cover.jpg
 	mkdir -p $(HOME)/sourcebook
-	cp -f $< $(HOME)/sourcebook/
+	cp -f $+ $(HOME)/sourcebook/
 texout: source.template.tex
 	envsubst < $<
 test: convert
@@ -43,6 +45,7 @@ clean:
 	rm -rf _markdown_*
 distclean: clean
 	rm -f *.pdf $(filter-out $(wildcard *.template.tex), $(wildcard *.tex))
+	rm -f *.jpg
 env:
 ifeq ($(SHOWENV),)
 	$(MAKE) SHOWENV=1 $@
