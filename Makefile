@@ -61,7 +61,9 @@ push:
 	git push -u githost master
 %.pdf: %.tex
 	pdflatex --shell-escape $<
-$(BUILD).%.tex: %.template.tex Makefile
+$(REPONAME).%.tex: %.template.tex Makefile
+	envsubst < $< > $@
+$(REPONAME).kindle.%.tex: %.kindle.template.tex Makefile
 	envsubst < $< > $@
 %.view: %.pdf %.cover.pdf %.cover.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
