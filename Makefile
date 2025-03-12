@@ -31,8 +31,10 @@ $(REPONAME).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
 	for file in $(FILES); do $(MAKE) LISTING=$$file -s texout >> $@; done
 	cat $| >> $@
-$(REPONAME).cover.jpg: $(REPONAME).cover.pdf
+%.cover.jpg: %.cover.pdf
 	pdftoppm $< | ppmtojpeg > $@
+%.cover.tex: cover.template.tex
+	envsubst < $< > $@
 %.save: %.pdf %.cover.jpg
 	mkdir -p $(HOME)/sourcebook
 	cp -f $+ $(HOME)/sourcebook/
@@ -59,8 +61,9 @@ push:
 	pdflatex --shell-escape $<
 $(REPONAME).%.tex: %.template.tex Makefile
 	envsubst < $< > $@
-%.view: %.pdf
-	rm -f $<  # remove and rebuild to ensure Contents are complete
-	$(MAKE) $<
+%.view: %.pdf %.cover.jpg
+	rm -f $+  # remove and rebuild to ensure Contents are complete
+	$(MAKE) $+
 	xpdf $<
-.PRECIOUS: %.pdf
+	display $(word 2, $+)
+.PRECIOUS: %.pdf %.cover.tex %.cover.jpg
