@@ -61,9 +61,9 @@ push:
 	pdflatex --shell-escape $<
 $(REPONAME).%.tex: %.template.tex Makefile
 	envsubst < $< > $@
-%.view: %.pdf %.cover.jpg
+%.view: %.pdf %.cover.pdf %.cover.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
 	$(MAKE) $+
 	xpdf $<
-	display $(word 2, $+)
+	display $(word 3, $+)
 .PRECIOUS: %.pdf %.cover.tex %.cover.jpg
