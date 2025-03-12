@@ -5,10 +5,17 @@ FILES ?= $(shell cd ../$(REPONAME) && git ls-files)
 PARTS := $(REPONAME).bookstart.tex $(REPONAME).intro.tex \
  $(REPONAME).sources.tex
 FINAL_PART := $(REPONAME).trailer.tex
-SUFFIXES := .py .mk .tex
-SUFFIX_LANGUAGES := Python make TeX
-BASENAMES := Makefile
-BASENAME_LANGUAGES := make
+# mapping suffixes to languages
+.py := Python
+.mk := make
+.tex := TeX
+# mapping non-suffixed filenames to languages
+Makefile := make
+# get language from listing path
+LISTING ?= Makefile.mk
+FILENAME := $(notdir $(LISTING))
+SUFFIX := $(suffix $(FILENAME))
+LANGUAGE ?= $(or $($(SUFFIX)),$($($FILENAME)))
 ifeq ($(SHOWENV),)
 	# not exporting all globals---but at least those needed by templates
 	export REPONAME AUTHOR BOOKTITLE LANGUAGE LISTING
@@ -30,7 +37,7 @@ env:
 ifeq ($(SHOWENV),)
 	$(MAKE) SHOWENV=1 $@
 else
-	$@
+	$@ | egrep -v '^(LS_COLORS)='
 endif
 push:
 	git push -u origin master
