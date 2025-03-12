@@ -1,4 +1,4 @@
-REPONAME ?= kybyz
+REPONAME ?= xacpi
 BOOKTITLE ?= $(REPONAME)
 AUTHOR ?= lotecnotec press
 FILES ?= $(shell cd ../$(REPONAME) && git ls-files)
@@ -16,19 +16,23 @@ Makefile := make
 README := HTML # not really, just for testing language detection
 # get language from listing path
 LISTING ?= Makefile.mk
+FILEPATH := ../$(REPONAME)/$(LISTING)
 FILENAME := $(notdir $(LISTING))
 SUFFIX := $(suffix $(FILENAME))
 LANGUAGE ?= $(or $($(SUFFIX)),$($(FILENAME)))
 ifeq ($(SHOWENV),)
 	# not exporting all globals---but at least those needed by templates
-	export REPONAME AUTHOR BOOKTITLE LANGUAGE LISTING
+	export REPONAME AUTHOR BOOKTITLE LANGUAGE LISTING FILEPATH
 else
 	export
 endif
 all: $(REPONAME).view
 $(REPONAME).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
+	for file in $(FILES); do $(MAKE) LISTING=$$file -s texout >> $@; done
 	cat $| >> $@
+texout: source.template.tex
+	envsubst < $<
 test: convert
 	./$< $(FILES)
 clean:
