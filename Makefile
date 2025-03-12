@@ -1,11 +1,12 @@
-REPONAME ?= xacpi
+BUILD ?= xacpi
+REPONAME ?= $(BUILD:$(suffix $(BUILD))=)
 BOOKTITLE ?= $(REPONAME)
 AUTHOR ?= John Otis Comeau
 PUBLISHER ?= lotecnotec press
 FILES ?= $(shell cd ../$(REPONAME) && git ls-files)
-PARTS := $(REPONAME).bookstart.tex $(REPONAME).intro.tex \
- $(REPONAME).sources.tex
-FINAL_PART := $(REPONAME).trailer.tex
+PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex \
+ $(BUILD).sources.tex
+FINAL_PART := $(BUILD).trailer.tex
 # mapping suffixes to languages
 .sh := bash
 .html := HTML
@@ -27,16 +28,16 @@ ifeq ($(SHOWENV),)
 else
 	export
 endif
-all: $(REPONAME).view $(REPONAME).save kindle
-$(REPONAME).tex: $(PARTS) | $(FINAL_PART)
+all: $(BUILD).view $(BUILD).save
+$(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
 	for file in $(FILES); do $(MAKE) LISTING=$$file -s texout >> $@; done
 	cat $| >> $@
-%.cover.kindle.jpg: %.cover.kindle.pdf
-	pdftoppm $< | ppmtojpeg > $(*:.kindle=).cover.kindle.jpg
-%.cover.kindle.tex: cover.kindle.template.tex
-	envsubst < $< > $(*:.kindle=).kindle.tex
-%.save: %.pdf %.cover.kindle.jpg
+%.cover.jpg: %.cover.pdf
+	pdftoppm $< | ppmtojpeg > $@
+%.cover.tex: cover.kindle.template.tex
+	envsubst < $< > $@
+%.save: %.pdf %.cover.jpg
 	mkdir -p $(HOME)/sourcebook
 	cp -f $+ $(HOME)/sourcebook/
 texout: source.template.tex
@@ -60,13 +61,13 @@ push:
 	git push -u githost master
 %.pdf: %.tex
 	pdflatex --shell-escape $<
-$(REPONAME).%.tex: %.template.tex Makefile
+$(BUILD).%.tex: %.template.tex Makefile
 	envsubst < $< > $@
-%.view: %.pdf %.cover.kindle.pdf %.cover.kindle.jpg
+%.view: %.pdf %.cover.pdf %.cover.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
 	$(MAKE) $+
 	xpdf $<
-	display $(*:.kindle=).cover.kindle.jpg
+	display $*.cover.jpg
 kindle:
-	$(MAKE) REPONAME=$(REPONAME).kindle all
-.PRECIOUS: %.pdf %.cover.kindle.tex %.cover.kindle.jpg
+	$(MAKE) BUILD=$(BUILD).kindle all
+.PRECIOUS: %.pdf %.cover.tex %.cover.jpg
