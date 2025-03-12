@@ -27,16 +27,16 @@ ifeq ($(SHOWENV),)
 else
 	export
 endif
-all: $(REPONAME).view $(REPONAME).save
+all: $(REPONAME).view $(REPONAME).save kindle
 $(REPONAME).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
 	for file in $(FILES); do $(MAKE) LISTING=$$file -s texout >> $@; done
 	cat $| >> $@
-%.cover.jpg: %.cover.pdf
-	pdftoppm $< | ppmtojpeg > $@
-%.cover.tex: cover.template.tex
-	envsubst < $< > $@
-%.save: %.pdf %.cover.jpg
+%.cover.kindle.jpg: %.cover.kindle.pdf
+	pdftoppm $< | ppmtojpeg > $(*:.kindle=).cover.kindle.jpg
+%.cover.kindle.tex: cover.kindle.template.tex
+	envsubst < $< > $(*:.kindle=).kindle.tex
+%.save: %.pdf %.cover.kindle.jpg
 	mkdir -p $(HOME)/sourcebook
 	cp -f $+ $(HOME)/sourcebook/
 texout: source.template.tex
@@ -62,9 +62,11 @@ push:
 	pdflatex --shell-escape $<
 $(REPONAME).%.tex: %.template.tex Makefile
 	envsubst < $< > $@
-%.view: %.pdf %.cover.pdf %.cover.jpg
+%.view: %.pdf %.cover.kindle.pdf %.cover.kindle.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
 	$(MAKE) $+
 	xpdf $<
-	display $(word 3, $+)
-.PRECIOUS: %.pdf %.cover.tex %.cover.jpg
+	display $(*:.kindle=).cover.kindle.jpg
+kindle:
+	$(MAKE) REPONAME=$(REPONAME).kindle all
+.PRECIOUS: %.pdf %.cover.kindle.tex %.cover.kindle.jpg
