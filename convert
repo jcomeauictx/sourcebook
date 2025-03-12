@@ -1,6 +1,0 @@
-#!/bin/bash
-for infile in $*; do
-	cat beginning.tex $infile ending.tex > listing.tex
-	pdflatex listing.tex
-	mv -f listing.pdf $(basename $infile).pdf
-done
