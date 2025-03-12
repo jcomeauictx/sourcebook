@@ -3,17 +3,22 @@ BOOKTITLE ?= $(REPONAME)
 AUTHOR ?= lotecnotec press
 FILES ?= $(shell cd ../$(REPONAME) && git ls-files)
 PARTS := $(REPONAME).bookstart.tex $(REPONAME).intro.tex \
- $(REPONAME).trailer.tex
-SUFFIXES := $(suffix $(FILES))
+ $(REPONAME).sources.tex
+FINAL_PART := $(REPONAME).trailer.tex
+SUFFIXES := .py .mk .tex
+SUFFIX_LANGUAGES := Python make TeX
+BASENAMES := Makefile
+BASENAME_LANGUAGES := make
 ifeq ($(SHOWENV),)
 	# not exporting all globals---but at least those needed by templates
-	export REPONAME AUTHOR BOOKTITLE
+	export REPONAME AUTHOR BOOKTITLE LANGUAGE LISTING
 else
 	export
 endif
 all: $(REPONAME).view
-$(REPONAME).tex: $(PARTS)
+$(REPONAME).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
+	cat $| >> $@
 test: convert
 	./$< $(FILES)
 clean:
