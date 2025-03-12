@@ -19,7 +19,7 @@ LISTING ?= Makefile.mk
 FILEPATH := ../$(REPONAME)/$(LISTING)
 FILENAME := $(notdir $(LISTING))
 SUFFIX := $(suffix $(FILENAME))
-LANGUAGE ?= $(or $($(SUFFIX)),$($(FILENAME)))
+LANGUAGE := $(or $($(SUFFIX)),$($(FILENAME)))
 ifeq ($(SHOWENV),)
 	# not exporting all globals---but at least those needed by templates
 	export REPONAME AUTHOR BOOKTITLE LANGUAGE LISTING FILEPATH
