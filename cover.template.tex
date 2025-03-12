@@ -1,0 +1,34 @@
+% sample code provided by Grok
+\documentclass[11pt]{memoir}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % For better font support
+\usepackage{tikz}    % For positioning
+\usepackage{geometry}
+
+% Set page size to 2560x1600 pixels (assuming 300dpi, common for print)
+% 2560px / 300dpi = 8.533in, 1600px / 300dpi = 5.333in
+\geometry{paperwidth=8.533in, paperheight=5.333in, margin=0in}
+
+% Remove default page numbering
+\pagestyle{empty}
+
+\begin{document}
+
+\begin{tikzpicture}[remember picture, overlay]
+    % Title - Very large monospaced font, centered
+    \node at (current page.center) {
+        \fontsize{72}{86}\ttfamily\selectfont EXAMPLE
+    };
+    
+    % Author - 16pt serif, left justified below title
+    \node[align=left, font=\fontsize{16}{19}\selectfont] 
+        at ([yshift=-1in]current page.center) 
+        {R. J. Drofnats};
+    
+    % Publisher - Centered above bottom margin
+    \node at ([yshift=0.5in]current page.south) 
+        {lotecnotec press};
+\end{tikzpicture}
+
+\end{document}
