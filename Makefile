@@ -37,7 +37,7 @@ test: convert
 	./$< $(FILES)
 clean:
 	rm -f *.aux *.log *.toc listing.tex overleaf_book.pdf *.lua *.out
-	rm -rf _markdown_$(REPONAME)
+	rm -rf _markdown_*
 distclean: clean
 	rm -f $(REPONAME).pdf $(REPONAME).*.tex $(REPONAME).tex
 env:
