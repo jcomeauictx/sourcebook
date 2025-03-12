@@ -16,9 +16,10 @@ $(REPONAME).tex: $(PARTS)
 test: convert
 	./$< $(FILES)
 clean:
-	rm -f *.aux *.log *.toc listing.tex overleaf_book.pdf
+	rm -f *.aux *.log *.toc listing.tex overleaf_book.pdf *.lua *.out
+	rm -rf _markdown_$(REPONAME)
 distclean: clean
-	rm -f $(REPONAME).pdf $(REPONAME).tex
+	rm -f $(REPONAME).pdf $(REPONAME).*.tex $(REPONAME).tex
 env:
 ifeq ($(SHOWENV),)
 	$(MAKE) SHOWENV=1 $@
