@@ -10,3 +10,4 @@ DeepSeek gave me the first few lines of tex code.
 # developer's notes
 * [including markdown with `\markdownInput{filename}`](https://www.overleaf.com/learn/how-to/Writing_Markdown_in_LaTeX_Documents)
 * [writing book with LaTeX](https://www.overleaf.com/learn/latex/Sections_and_chapters)
+* [need to run pdflatex *twice* for Contents to be populated](https://tex.stackexchange.com/a/301109/215508)

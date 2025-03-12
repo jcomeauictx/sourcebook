@@ -54,4 +54,7 @@ push:
 $(REPONAME).%.tex: %.template.tex Makefile
 	envsubst < $< > $@
 %.view: %.pdf
+	rm -f $<  # remove and rebuild to ensure Contents are complete
+	$(MAKE) $<
 	xpdf $<
+.PRECIOUS: %.pdf
