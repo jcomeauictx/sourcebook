@@ -45,7 +45,7 @@ texout: source.template.tex
 test: convert
 	./$< $(FILES)
 clean:
-	rm -f *.aux *.log *.toc *.lua *.out
+	rm -f *.aux *.log *.toc *.lua *.out *.err
 	rm -rf _markdown_*
 distclean: clean
 	rm -f *.pdf $(filter-out $(wildcard *.template.tex), $(wildcard *.tex))
