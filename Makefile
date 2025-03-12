@@ -6,16 +6,19 @@ PARTS := $(REPONAME).bookstart.tex $(REPONAME).intro.tex \
  $(REPONAME).sources.tex
 FINAL_PART := $(REPONAME).trailer.tex
 # mapping suffixes to languages
+.sh := bash
+.html := HTML
 .py := Python
 .mk := make
 .tex := TeX
 # mapping non-suffixed filenames to languages
 Makefile := make
+README := HTML # not really, just for testing language detection
 # get language from listing path
 LISTING ?= Makefile.mk
 FILENAME := $(notdir $(LISTING))
 SUFFIX := $(suffix $(FILENAME))
-LANGUAGE ?= $(or $($(SUFFIX)),$($($FILENAME)))
+LANGUAGE ?= $(or $($(SUFFIX)),$($(FILENAME)))
 ifeq ($(SHOWENV),)
 	# not exporting all globals---but at least those needed by templates
 	export REPONAME AUTHOR BOOKTITLE LANGUAGE LISTING
