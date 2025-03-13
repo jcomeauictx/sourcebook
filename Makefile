@@ -73,6 +73,8 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	$(MAKE) $+
 	xpdf $<
 	display $*.cover.jpg
+%.view: %.pdf
+	xpdf $<
 kindle paperback:
 	$(MAKE) BUILD=$(BUILD).$@ all
 .PRECIOUS: %.pdf %.cover.tex %.cover.jpg
