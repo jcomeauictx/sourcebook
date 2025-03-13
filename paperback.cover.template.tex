@@ -6,17 +6,12 @@
 \usepackage{tikz}    % For positioning
 \usepackage{geometry}
 
-% Set page size to 2560x1600 pixels (assuming 300dpi, common for print)
-% 2560px / 300dpi = 8.533in, 1600px / 300dpi = 5.333in
-\geometry{paperwidth=5.333in, paperheight=8.533in, margin=0in}
+\geometry{paperwidth=12in, paperheight=9in, left=6in}
 
 % Remove default page numbering
 \pagestyle{empty}
 
 \begin{document}
-
-% skip a page (the back cover; Amazon will place a barcode on it)
-\newpage \ \newpage
 
 \begin{tikzpicture}[remember picture, overlay]
     % Title - Very large monospaced font, centered
