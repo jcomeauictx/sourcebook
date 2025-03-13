@@ -4,8 +4,9 @@ REPONAME ?= $(BUILD:$(suffix $(BUILD))=)
 BOOKTITLE ?= $(REPONAME)
 AUTHOR ?= John Otis Comeau
 PUBLISHER ?= lotecnotec press
-FILES ?= $(shell cd ../$(REPONAME) && git ls-files)
-PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).sources.tex
+FILES ?= $(filter-out LICENSE, $(shell cd ../$(REPONAME) && git ls-files))
+PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
+PARTS += $(BUILD).sources.tex
 FINAL_PART := $(BUILD).trailer.tex
 # mapping suffixes to languages
 .sh := bash
