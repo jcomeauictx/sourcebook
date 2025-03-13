@@ -10,3 +10,5 @@
     breaklines=true              % break long lines
 }
 \chapter{Listings}
+\let\realsection\section
+\renewcommand\section{\vfill\null\newpage\realsection}
