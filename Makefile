@@ -36,7 +36,7 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $| >> $@
 %.cover.jpg: %.cover.pdf
 	pdftoppm $< | ppmtojpeg > $@
-%.cover.tex: cover.kindle.template.tex
+%.cover.tex: kindle.cover.template.tex
 	envsubst < $< > $@
 %.save: %.pdf %.cover.jpg
 	mkdir -p $(HOME)/sourcebook
@@ -64,7 +64,7 @@ push:
 	pdflatex --shell-escape $<
 $(REPONAME).%.tex: %.template.tex Makefile
 	envsubst < $< > $@
-$(REPONAME).kindle.%.tex: %.kindle.template.tex Makefile
+$(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
 	envsubst < $< > $@
 %.view: %.pdf %.cover.pdf %.cover.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
