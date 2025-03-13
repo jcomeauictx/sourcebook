@@ -5,6 +5,7 @@ BOOKTITLE ?= $(REPONAME)
 AUTHOR ?= John Otis Comeau
 PUBLISHER ?= lotecnotec press
 FILES ?= $(filter-out LICENSE, $(shell cd ../$(REPONAME) && git ls-files))
+SUBDIRS ?= $(sort $(dir $(FILES)))
 PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
 PARTS += $(BUILD).sources.tex
 FINAL_PART := $(BUILD).trailer.tex
