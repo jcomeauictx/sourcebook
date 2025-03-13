@@ -1,32 +1,7 @@
-% sample code provided by Grok
-\documentclass[11pt]{memoir}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern} % For better font support
-\usepackage{tikz}    % For positioning
+\documentclass{memoir}
 \usepackage{geometry}
-
 \geometry{paperwidth=12in, paperheight=9in, left=6in}
-
-% Remove default page numbering
-\pagestyle{empty}
-
+\pagestyle{empty}  % remove default page numbering
 \begin{document}
-
-\begin{tikzpicture}[remember picture, overlay]
-    % Title - Very large monospaced font, centered
-    \node at (current page.center) {
-        \fontsize{72}{86}\ttfamily\selectfont $BOOKTITLE
-    };
-    
-    % Author - 16pt serif, left justified below title
-    \node[align=left, font=\fontsize{16}{19}\selectfont] 
-        at ([yshift=-1in]current page.center) 
-        {$AUTHOR};
-    
-    % Publisher - Centered above bottom margin
-    \node at ([yshift=0.5in]current page.south) 
-        {$PUBLISHER};
-\end{tikzpicture}
-
+\hbox{$BOOKTITLE $AUTHOR $PUBLISHER}
 \end{document}
