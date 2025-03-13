@@ -36,9 +36,9 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $| >> $@
 %.cover.jpg: %.cover.pdf
 	pdftoppm $< | ppmtojpeg > $@
-%.cover.tex: kindle.cover.template.tex
+$(REPONAME).%.cover.tex: %.cover.template.tex
 	envsubst < $< > $@
-%.save: %.pdf %.cover.jpg
+%.save: %.pdf %.cover.jpg %.cover.pdf
 	mkdir -p $(HOME)/sourcebook
 	cp -f $+ $(HOME)/sourcebook/
 texout: source.template.tex
