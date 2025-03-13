@@ -17,3 +17,10 @@ DeepSeek gave me the first few lines of tex code.
     - 72 DPI
     - RGB colors
     - less than 50MB
+* [Amazon cover calculator](https://kdp.amazon.com/en_US/cover-calculator),
+  figure 9.25" height and 12.25 plus spine for width. For the spine, there's
+  a "spine margin" of .062 inches on each side of the spine proper, called the
+  "spine safe area", so the minimum spine is 0.124 inches. The number of
+  pages determines the spine safe area, but it's not linear; 100 pages is only
+  .1 inch, but 200 is .325, and 500 is 1.001 inches, all using plain white
+  paper.
