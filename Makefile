@@ -66,11 +66,13 @@ $(REPONAME).%.tex: %.template.tex Makefile
 	envsubst < $< > $@
 $(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
 	envsubst < $< > $@
+$(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
+	envsubst < $< > $@
 %.view: %.pdf %.cover.pdf %.cover.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
 	$(MAKE) $+
 	xpdf $<
 	display $*.cover.jpg
-kindle:
-	$(MAKE) BUILD=$(BUILD).kindle all
+kindle paperback:
+	$(MAKE) BUILD=$(BUILD).$@ all
 .PRECIOUS: %.pdf %.cover.tex %.cover.jpg
