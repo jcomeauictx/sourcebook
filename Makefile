@@ -6,6 +6,7 @@ AUTHOR ?= John Otis Comeau
 PUBLISHER ?= lotecnotec press
 FILES ?= $(filter-out LICENSE, $(shell cd ../$(REPONAME) && git ls-files))
 SUBDIRS ?= $(sort $(dir $(FILES)))
+SUBDIR ?=
 PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
 PARTS += $(BUILD).sources.tex
 FINAL_PART := $(BUILD).trailer.tex
@@ -33,7 +34,12 @@ endif
 all: $(BUILD).view $(BUILD).save
 $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
-	for file in $(FILES); do $(MAKE) LISTING=$$file texout >> $@; done
+	for subdir in $(SUBDIRS); do \
+	 make SUBDIR=$$subdir $(BUILD).subdir >> $@; \
+	 for file in $(FILES); do \
+	  $(MAKE) LISTING=$$file $(BUILD).listing >> $@; \
+	 done; \
+	done
 	cat $| >> $@
 %.cover.jpg: %.cover.pdf
 	pdftoppm $< | ppmtojpeg > $@
@@ -42,7 +48,9 @@ $(REPONAME).%.cover.tex: %.cover.template.tex
 %.save: %.pdf %.cover.jpg %.cover.pdf
 	mkdir -p $(HOME)/sourcebook
 	cp -f $+ $(HOME)/sourcebook/
-texout: source.template.tex
+$(REPONAME).%.subdir: %.subdir.template.tex
+	envsubst < $<
+$(REPONAME).%.listing: %.source.template.tex
 	envsubst < $<
 test: convert
 	./$< $(FILES)
