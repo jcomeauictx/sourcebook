@@ -16,11 +16,15 @@ FINAL_PART := $(BUILD).trailer.tex
 .py := Python
 .mk := make
 .tex := TeX
+# "bad" suffixes that shouldn't show up in listings
+.pdf := BAD
+.der := BAD
+.exe := BAD
 # mapping non-suffixed filenames to languages
 Makefile := make
 README := HTML # not really, just for testing language detection
 # get language from listing path
-LISTING ?= Makefile.mk
+LISTING ?=
 FILEPATH := ../$(REPONAME)/$(LISTING)
 FILENAME := $(notdir $(LISTING))
 SUFFIX := $(suffix $(FILENAME))
@@ -51,7 +55,13 @@ $(REPONAME).%.cover.tex: %.cover.template.tex
 $(REPONAME).%.subdir: %.subdir.template.tex
 	envsubst < $<
 $(REPONAME).%.listing: %.source.template.tex
-	envsubst < $<
+	if [ "$$(dirname $(LISTING))/" = "$(SUBDIR)" ]; then \
+	 if [ "$($(SUFFIX))" != "BAD" ]; then \
+	  envsubst < $<; \
+	 else \
+	  echo $(FILENAME) is not a valid listing >&2; \
+	 fi; \
+	fi
 test: convert
 	./$< $(FILES)
 clean:
