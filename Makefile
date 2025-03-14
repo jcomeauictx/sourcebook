@@ -100,7 +100,7 @@ push:
 	git push -u githost master
 %.pdf: %.tex
 	pdflatex --shell-escape $<
-$(REPONAME).%.tex: %.template.tex Makefile
+$(REPONAME).pdf.%.tex: pdf.%.template.tex Makefile
 	envsubst < $< > $@
 $(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
 	envsubst < $< > $@
