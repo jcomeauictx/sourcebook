@@ -4,7 +4,6 @@ TYPE := $(suffix $(BUILD))
 # this approach can be problematic if dots are in repo names
 ifeq ($(TYPE),)
  BUILDTYPE := pdf
- BUILD := $(BUILD).pdf
 else
  BUILDTYPE=$(replace .,,$(TYPE))
 endif
