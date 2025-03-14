@@ -1,6 +1,12 @@
-BUILD ?= xacpi
+BUILD ?= xacpi.pdf
+BUILDTYPE ?= $(suffix $(BUILD))
+ifeq ($(BUILDTYPE),)
+ BUILDTYPE=pdf
+else
+ BUILDTYPE=$(replace .,,$(BUILDTYPE))
+endif
 MAKE := make -s
-REPONAME ?= $(BUILD:$(suffix $(BUILD))=)
+REPONAME ?= $(BUILD:$(BUILDTYPE)=)
 BOOKTITLE ?= $(REPONAME)
 AUTHOR ?= John Otis Comeau
 PUBLISHER ?= lotecnotec press
@@ -19,6 +25,9 @@ FINAL_PART := $(BUILD).trailer.tex
 # "bad" suffixes that shouldn't show up in listings
 .pdf := BAD
 .der := BAD
+.cer := BAD
+.crt := BAD
+.0 := BAD
 .exe := BAD
 # mapping non-suffixed filenames to languages
 Makefile := make
@@ -39,9 +48,9 @@ all: $(BUILD).view $(BUILD).save
 $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
 	for subdir in $(SUBDIRS); do \
-	 make SUBDIR=$$subdir $(BUILD).subdir >> $@; \
+	 $(MAKE) SUBDIR=$$subdir $(BUILD).subdir >> $@; \
 	 for file in $(FILES); do \
-	  $(MAKE) LISTING=$$file $(BUILD).listing >> $@; \
+	  $(MAKE) SUBDIR=$$subdir LISTING=$$file $(BUILD).listing >> $@; \
 	 done; \
 	done
 	cat $| >> $@
@@ -55,12 +64,15 @@ $(REPONAME).%.cover.tex: %.cover.template.tex
 $(REPONAME).%.subdir: %.subdir.template.tex
 	envsubst < $<
 $(REPONAME).%.listing: %.source.template.tex
+	@echo % conditionally making listing for $(LISTING) in $(SUBDIR)
 	if [ "$$(dirname $(LISTING))/" = "$(SUBDIR)" ]; then \
 	 if [ "$($(SUFFIX))" != "BAD" ]; then \
 	  envsubst < $<; \
 	 else \
-	  echo $(FILENAME) is not a valid listing >&2; \
+	  echo % $(FILENAME) is not a valid listing; \
 	 fi; \
+	else \
+	 echo % $(LISTING) not in $(SUBDIR); \
 	fi
 test: convert
 	./$< $(FILES)
