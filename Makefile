@@ -1,14 +1,21 @@
-BUILD ?= xacpi.pdf
-BUILDTYPE ?= $(suffix $(BUILD))
-ifeq ($(BUILDTYPE),)
- BUILDTYPE=pdf
+BUILD ?= xacpi
+TYPE := $(suffix $(BUILD))
+# valid BUILDTYPEs are pdf, kindle, and paperback
+# this approach can be problematic if dots are in repo names
+ifeq ($(TYPE),)
+ BUILDTYPE := pdf
+ BUILD := $(BUILD).pdf
 else
- BUILDTYPE=$(replace .,,$(BUILDTYPE))
+ BUILDTYPE=$(replace .,,$(TYPE))
 endif
 MAKE := make -s
-REPONAME ?= $(BUILD:$(BUILDTYPE)=)
+REPONAME ?= $(BUILD:.$(BUILDTYPE)=)
 BOOKTITLE ?= $(REPONAME)
-AUTHOR ?= John Otis Comeau
+ifeq ($(REPONAME),SATsign)
+ AUTHOR ?= Christian Cruz and John Comeau
+else
+ AUTHOR ?= John Comeau
+endif
 PUBLISHER ?= lotecnotec press
 FILES ?= $(filter-out LICENSE, $(shell cd ../$(REPONAME) && git ls-files))
 SUBDIRS ?= $(sort $(dir $(FILES)))
@@ -44,7 +51,8 @@ ifeq ($(SHOWENV),)
 else
 	export
 endif
-all: $(BUILD).view $(BUILD).save
+default: pdf
+all: env $(BUILD).view $(BUILD).save
 $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
 	for subdir in $(SUBDIRS); do \
@@ -106,6 +114,6 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	display $*.cover.jpg
 %.view: %.pdf
 	xpdf $<
-kindle paperback:
+kindle paperback pdf:
 	$(MAKE) BUILD=$(BUILD).$@ all
 .PRECIOUS: %.pdf %.cover.tex %.cover.jpg
