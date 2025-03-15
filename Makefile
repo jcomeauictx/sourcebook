@@ -63,11 +63,6 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $| >> $@
 %.cover.jpg: %.cover.pdf
 	pdftoppm $< | ppmtojpeg > $@
-$(REPONAME).%.cover.tex: %.cover.template.tex $(REPONAME).%.pdf
-	pages=$$(pdfinfo $(word 2, $+) | awk '$1 ~ /^Pages:/ {print $2}'); \
-	coverwidth=$$(printf %.03f $$(echo "$$pages*.00225+12.25" | bc)); \
-	echo '*****CHECK*****' pages $$pages coverwidth $$coverwidth >&2; \
-	COVERWIDTH=$$coverwidth envsubst < $< > $@
 %.save: %.pdf %.cover.pdf %.cover.jpg
 	mkdir -p $(HOME)/sourcebook
 	cp -f $+ $(HOME)/sourcebook/
@@ -101,6 +96,8 @@ endif
 push:
 	git push -u origin master
 	git push -u githost master
+%.cover.pdf: %.cover.tex
+	pdflatex $<
 %.pdf: %.tex
 	pdflatex --shell-escape $<
 $(REPONAME).pdf.%.tex: pdf.%.template.tex Makefile
@@ -109,7 +106,17 @@ $(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
 	envsubst < $< > $@
 $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	# prevent incomplete cover code from being generated
-	if [ "$*" != "cover" ]; then envsubst < $< > $@; fi
+	if [ "$*" != "cover" ]; then \
+	 envsubst < $< > $@; \
+	elif [ -s "$(@:.cover.tex=.pdf)" ]; then \
+	 pages=$$(pdfinfo $(@:.cover.tex=.pdf) | \
+	  awk '$$1 ~ /^Pages:/ {print $$2}'); \
+	 coverwidth=$$(printf %.03f $$(echo "$$pages*.00225+12.25" | bc)); \
+	 echo '*****CHECK*****' pages $$pages coverwidth $$coverwidth >&2; \
+	 COVERWIDTH=$$coverwidth envsubst < $< > $@; \
+	else \
+	 echo not generating cover until $(@:.cover.tex=.pdf) complete >&2; \
+	fi
 %.view: %.pdf %.cover.pdf %.cover.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
 	$(MAKE) $+
