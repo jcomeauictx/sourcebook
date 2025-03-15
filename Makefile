@@ -66,8 +66,9 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 $(REPONAME).%.cover.tex: %.cover.template.tex $(REPONAME).%.pdf
 	pages=$$(pdfinfo $(word 2, $+) | awk '$1 ~ /^Pages:/ {print $2}'); \
 	coverwidth=$$(printf %.03f $$(echo "$$pages*.00225+12.25" | bc)); \
+	echo '*****CHECK*****' pages $$pages coverwidth $$coverwidth >&2; \
 	COVERWIDTH=$$coverwidth envsubst < $< > $@
-%.save: %.pdf %.cover.jpg %.cover.pdf
+%.save: %.pdf %.cover.pdf %.cover.jpg
 	mkdir -p $(HOME)/sourcebook
 	cp -f $+ $(HOME)/sourcebook/
 $(REPONAME).%.subdir: %.subdir.template.tex
@@ -107,7 +108,8 @@ $(REPONAME).pdf.%.tex: pdf.%.template.tex Makefile
 $(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
 	envsubst < $< > $@
 $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
-	envsubst < $< > $@
+	# prevent incomplete cover code from being generated
+	if [ "$*" != "cover" ]; then envsubst < $< > $@; fi
 %.view: %.pdf %.cover.pdf %.cover.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
 	$(MAKE) $+
@@ -117,4 +119,4 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	xpdf $<
 kindle paperback pdf:
 	$(MAKE) BUILD=$(BUILD).$@ all
-.PRECIOUS: %.pdf %.cover.tex %.cover.jpg
+.PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
