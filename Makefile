@@ -35,6 +35,8 @@ FINAL_PART := $(BUILD).trailer.tex
 .crt := BAD
 .0 := BAD
 .exe := BAD
+# rename .min.js files to .minjs: will this work though?
+.minjs := BAD
 # mapping non-suffixed filenames to languages
 Makefile := make
 README := HTML # not really, just for testing language detection
@@ -99,7 +101,8 @@ push:
 %.cover.pdf: %.cover.tex
 	pdflatex $<
 %.pdf: %.tex
-	pdflatex --shell-escape $<
+	# the || true lets us continue to create the cover
+	pdflatex -shell-escape -interaction nonstopmode $< || true
 $(REPONAME).pdf.%.tex: pdf.%.template.tex Makefile
 	envsubst < $< > $@
 $(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
