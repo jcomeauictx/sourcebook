@@ -63,8 +63,10 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $| >> $@
 %.cover.jpg: %.cover.pdf
 	pdftoppm $< | ppmtojpeg > $@
-$(REPONAME).%.cover.tex: %.cover.template.tex
-	envsubst < $< > $@
+$(REPONAME).%.cover.tex: %.cover.template.tex $(REPONAME).%.pdf
+	pages=$$(pdfinfo $(word 2, $+) | awk '$1 ~ /^Pages:/ {print $2}'); \
+	coverwidth=$$(printf %.03f $$(echo "$$pages*.00225+12.25" | bc)); \
+	COVERWIDTH=$$coverwidth envsubst < $< > $@
 %.save: %.pdf %.cover.jpg %.cover.pdf
 	mkdir -p $(HOME)/sourcebook
 	cp -f $+ $(HOME)/sourcebook/
