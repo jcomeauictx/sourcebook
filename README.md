@@ -34,6 +34,7 @@ DeepSeek gave me the first few lines of tex code.
   |  100|           .100|          .162|       .225|           12.475|
   |  200|           .325|          .387|       .450|           12.700|
   |  500|          1.001|         1.063|      1.126|           12.376|
+
   Thus, in fact, the calculation *is* linear, and the spine margin is a
   myth. If you divide the "spine shown" column by the number of pages,
   the result in all of the above cases is almost exactly .00225 inches.
