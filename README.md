@@ -17,7 +17,7 @@ DeepSeek gave me the first few lines of tex code.
     - 72 DPI
     - RGB colors
     - less than 50MB
-* <a name="calc">
+* <a name="calc"></a>
   [Amazon cover calculator](https://kdp.amazon.com/en_US/cover-calculator),
   for a nominally 6x9 book, with .125" bleed and .125" margin in each dimension,
   figure 9.25" height and 12.25" plus spine for width. For the spine, there's
