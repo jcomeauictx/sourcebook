@@ -1,11 +1,17 @@
 BUILD ?= xacpi
+# BORDER used by ImageMagick convert to whiteout anything in margins
+BORDER ?= 36
 TYPE := $(suffix $(BUILD))
 # valid BUILDTYPEs are pdf, kindle, and paperback
 # this approach can be problematic if dots are in repo names
 ifeq ($(TYPE),)
  BUILDTYPE := pdf
+ BORDER ?= 60
 else
  BUILDTYPE=$(replace .,,$(TYPE))
+endif
+ifeq ($(BUILDTYPE),kindle)
+ BORDER ?= 70
 endif
 MAKE := make -s
 REPONAME ?= $(BUILD:.$(BUILDTYPE)=)
@@ -129,4 +135,16 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	xpdf $<
 kindle paperback pdf:
 	$(MAKE) BUILD=$(BUILD).$@ all
+# recipes to truncate lines that bleed into margins
+# from https://stackoverflow.com/a/39726873/493161
+%.borders.pdf: %.pdf
+	tempdir=$$(mktemp -d); \
+	 pdfseparate $< $$tempdir/page%04d.pdf; \
+	 for page in $$tempdir/page*; do \
+	  convert $$page -shave $(BORDER)x$(BORDER) \
+	   -bordercolor green \
+	   -border $(BORDER) \
+	   $$page.withborder.pdf; \
+	 done; \
+	pdfunite $$tempdir/*.withborder.pdf $@
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
