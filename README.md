@@ -20,7 +20,7 @@ tex.stackexchange.com/a/301109/215508)
     - 72 DPI
     - RGB colors
     - less than 50MB
-* <a name="Amazon cover calculator"</a>]
+* <a name="calc">Amazon cover calculator</a>
   <https://kdp.amazon.com/en_US/cover-calculator>
   for a nominally 6x9 book, with .125" bleed and .125" margin in each
   dimension, figure 9.25" height and 12.25" plus spine for width. For the
