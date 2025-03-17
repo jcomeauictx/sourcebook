@@ -20,8 +20,8 @@ tex.stackexchange.com/a/301109/215508)
     - 72 DPI
     - RGB colors
     - less than 50MB
-* [Amazon cover calculator](https://kdp.amazon.com/en_US/cover-calculator)
-
+* <a name="Amazon cover calculator"</a>]
+  <https://kdp.amazon.com/en_US/cover-calculator>
   for a nominally 6x9 book, with .125" bleed and .125" margin in each
   dimension, figure 9.25" height and 12.25" plus spine for width. For the
   spine, there's a "spine margin" of .031 inches on each side of the spine
@@ -43,4 +43,6 @@ tex.stackexchange.com/a/301109/215508)
   --------------------------------------------------------------------
   Thus, in fact, the calculation *is* linear, and the spine margin is a
   myth. If you divide the "spine shown" column by the number of pages,
+* Check the Makefile for whiteout options when text bleeds into the
+  margins.
   the result in all of the above cases is almost exactly .00225 inches.
