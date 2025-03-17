@@ -43,6 +43,6 @@ tex.stackexchange.com/a/301109/215508)
   --------------------------------------------------------------------
   Thus, in fact, the calculation *is* linear, and the spine margin is a
   myth. If you divide the "spine shown" column by the number of pages,
+  the result in all of the above cases is almost exactly .00225 inches.
 * Check the Makefile for whiteout options when text bleeds into the
   margins.
-  the result in all of the above cases is almost exactly .00225 inches.
