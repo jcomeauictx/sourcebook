@@ -33,7 +33,11 @@ FINAL_PART := $(BUILD).trailer.tex
 .html := HTML
 .py := Python
 .mk := make
+.php := PHP
 .tex := TeX
+.c := C
+.cpp := C++
+.java := Java
 # "bad" suffixes that shouldn't show up in listings
 .pdf := BAD
 .der := BAD
