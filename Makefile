@@ -110,8 +110,8 @@ else
 	$@ | egrep -v '^(LS_COLORS)='
 endif
 push:
-	git push -u origin master
-	git push -u githost master
+	git push origin
+	git push githost
 %.cover.pdf: %.cover.tex
 	pdflatex $<
 %.pdf: %.tex
