@@ -141,6 +141,16 @@ kindle paperback pdf:
 	$(MAKE) BUILD=$(BUILD).$@ all
 # recipes to truncate lines that bleed into margins
 # from https://stackoverflow.com/a/39726873/493161
+%.whiteout.pdf: %.pdf
+	tempdir=$$(mktemp -d); \
+	 pdfseparate $< $$tempdir/page%04d.pdf; \
+	 for page in $$tempdir/page*; do \
+	  convert $$page -gravity east -chop $(BORDER)x \
+	   -background green \
+	   -splice $(BORDER)x \
+	   $$page.withborder.pdf; \
+	 done; \
+	pdfunite $$tempdir/*.withborder.pdf $@
 %.borders.pdf: %.pdf
 	tempdir=$$(mktemp -d); \
 	 pdfseparate $< $$tempdir/page%04d.pdf; \
