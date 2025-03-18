@@ -8,16 +8,16 @@ BGCOLOR ?= white
 # `make PAGES='page0024.pdf page0123.pdf' doc.whiteout.pdf`
 PAGES ?= ALL
 TYPE := $(suffix $(BUILD))
-# valid BUILDTYPEs are pdf, kindle, and paperback
+# valid BUILDTYPEs are letter, kindle, and paperback
 # this approach can be problematic if dots are in repo names
 ifeq ($(TYPE),)
- BUILDTYPE ?= pdf
+ BUILDTYPE ?= letter
 else
  BUILDTYPE=$(subst .,,$(TYPE))
 endif
 ifeq ($(BUILDTYPE),kindle)
  BORDER ?= 64
-else ifeq ($(BUILDTYPE),pdf)
+else ifeq ($(BUILDTYPE),letter)
  BORDER ?= 64
 else ifeq ($(BUILDTYPE),paperback)
  BORDER ?= 50
@@ -74,7 +74,7 @@ ifeq ($(SHOWENV),)
 else
 	export
 endif
-default: pdf
+default: letter
 all: env $(BUILD).view $(BUILD).save
 $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
@@ -125,7 +125,7 @@ push:
 %.pdf: %.tex
 	# the || true lets us continue to create the cover
 	pdflatex -shell-escape -interaction nonstopmode $< || true
-$(REPONAME).pdf.%.tex: pdf.%.template.tex Makefile
+$(REPONAME).letter.%.tex: letter.%.template.tex Makefile
 	envsubst < $< > $@
 $(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
 	envsubst < $< > $@
@@ -149,7 +149,7 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	display $*.cover.jpg
 %.view: %.pdf
 	xpdf $<
-kindle paperback pdf:
+kindle paperback letter:
 	$(MAKE) BUILD=$(BUILD).$@ all
 # recipes to truncate lines that bleed into margins
 # from https://stackoverflow.com/a/39726873/493161
