@@ -13,7 +13,7 @@ TYPE := $(suffix $(BUILD))
 ifeq ($(TYPE),)
  BUILDTYPE ?= pdf
 else
- BUILDTYPE=$(replace .,,$(TYPE))
+ BUILDTYPE=$(subst .,,$(TYPE))
 endif
 ifeq ($(BUILDTYPE),kindle)
  BORDER ?= 64
@@ -34,6 +34,7 @@ PUBLISHER ?= lotecnotec press
 FILES ?= $(filter-out LICENSE, $(shell cd ../$(REPONAME) && git ls-files))
 SUBDIRS ?= $(sort $(dir $(FILES)))
 SUBDIR ?=
+SECTION := $(subst _,\_,$(SUBDIR))
 PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
 PARTS += $(BUILD).sources.tex
 FINAL_PART := $(BUILD).trailer.tex
@@ -67,7 +68,8 @@ SUFFIX := $(suffix $(FILENAME))
 LANGUAGE := $(or $($(SUFFIX)),$($(FILENAME)))
 ifeq ($(SHOWENV),)
 	# not exporting all globals---but at least those needed by templates
-	export REPONAME AUTHOR PUBLISHER BOOKTITLE LANGUAGE LISTING FILEPATH
+	export REPONAME AUTHOR PUBLISHER BOOKTITLE LANGUAGE LISTING \
+	 FILEPATH SECTION
 else
 	export
 endif
