@@ -16,9 +16,9 @@ else
  BUILDTYPE=$(replace .,,$(TYPE))
 endif
 ifeq ($(BUILDTYPE),kindle)
- BORDER ?= 70
+ BORDER ?= 64
 else ifeq ($(BUILDTYPE),pdf)
- BORDER ?= 58
+ BORDER ?= 64
 else ifeq ($(BUILDTYPE),paperback)
  BORDER ?= 50
 endif
