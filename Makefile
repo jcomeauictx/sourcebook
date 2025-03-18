@@ -145,6 +145,12 @@ kindle paperback pdf:
 	$(MAKE) BUILD=$(BUILD).$@ all
 # recipes to truncate lines that bleed into margins
 # from https://stackoverflow.com/a/39726873/493161
+# however, this degrades the print quality noticeably, and changing
+# ImageMagick's delegation to pnmraw as in
+# https://stackoverflow.com/a/16435640/493161 didn't help.
+# so, best to use whiteout's `convert` command only on the necessary
+# pages before running pdunite. That way the bad print is only on the
+# affected pages.
 %.whiteout.pdf: %.pdf
 	tempdir=$$(mktemp -d); \
 	 pdfseparate $< $$tempdir/page%04d.pdf; \
