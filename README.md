@@ -20,18 +20,15 @@ tex.stackexchange.com/a/301109/215508)
     - 72 DPI
     - RGB colors
     - less than 50MB
-* <a name="calc">Amazon cover calculator</a>
-  <https://kdp.amazon.com/en_US/cover-calculator>
-  for a nominally 6x9 book, with .125" bleed and .125" margin in each
-  dimension, figure 9.25" height and 12.25" plus spine for width. For the
-  spine, there's a "spine margin" of .031 inches on each side of the spine
-  proper, called the "spine safe area", so the minimum spine is
-  theoretically 0.062"; but in reality, the calculator shows a spine width
-  of 0.54 inches for the minimal 24 page book, for a total width of 12.304".
-  The number of pages determines the spine safe area, but it's not linear;
-  24 and 50 pages both show as 0, for example, but the total width
-  is different.
-  --------------------------------------------------------------------
+* [Amazon cover calculator](https://kdp.amazon.com/en_US/cover-calculator),
+  for a nominally 6x9 book, with .125" bleed and .125" margin in each dimension,
+  figure 9.25" height and 12.25" plus spine for width. For the spine, there's
+  a "spine margin" of .031 inches on each side of the spine proper, called the
+  "spine safe area", so the minimum spine is theoretically 0.062"; but in
+  reality, the calculator shows a spine width of 0.54 inches for the minimal
+  24 page book, for a total width of 12.304". The number of pages determines
+  the spine safe area, but it's not linear; 24 and 50 pages both show as 0,
+  for example, but the total width is different.
   |Pages|Spine safe area|Spine expected|Spine shown|Total width shown|
   |-----|---------------|--------------|-----------|-----------------|
   |   24|              0|          .062|       .054|           12.304|
