@@ -1,7 +1,12 @@
+# bashisms in Makefile, cannot use old sh
+SHELL := /bin/bash
 BUILD ?= xacpi
 # BORDER used by ImageMagick convert to whiteout anything in margins
 # change BGCOLOR to something noticeable like green for debugging
 BGCOLOR ?= white
+# to whiteout only certain pages:
+# `make PAGES='page0024.pdf page0123.pdf' doc.whiteout.pdf`
+PAGES ?= ALL
 TYPE := $(suffix $(BUILD))
 # valid BUILDTYPEs are pdf, kindle, and paperback
 # this approach can be problematic if dots are in repo names
@@ -155,10 +160,17 @@ kindle paperback pdf:
 	tempdir=$$(mktemp -d); \
 	 pdfseparate $< $$tempdir/page%04d.pdf; \
 	 for page in $$tempdir/page*; do \
-	  convert $$page -gravity east -chop $(BORDER)x \
-	   -background $(BGCOLOR) \
-	   -splice $(BORDER)x \
-	   $$page.withborder.pdf; \
+	  echo processing $$page... >&2; \
+	  if [[ $(PAGES) = ALL || $(PAGES) = *$$(basename $$page)* ]]; then \
+	   echo converting $$page... >&2; \
+	   convert $$page -gravity east -chop $(BORDER)x \
+	    -background $(BGCOLOR) \
+	    -splice $(BORDER)x \
+	    $$page.withborder.pdf; \
+	  else \
+	   echo skipping page $$page... >&2; \
+	   mv $$page $$page.unchanged.withborder.pdf; \
+	  fi; \
 	 done; \
 	pdfunite $$tempdir/*.withborder.pdf $@
 	xpdf $@
