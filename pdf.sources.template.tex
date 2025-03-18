@@ -4,10 +4,16 @@
     stepnumber=1,                % show every line number
     numbersep=5pt,               % gap between numbers and code
     backgroundcolor=\color{white}, % background color
-    keywordstyle=\color{blue},    % keyword style
+    keywordstyle=\color{blue},   % keyword style
     basicstyle=\ttfamily,        % code font and (optionally) size
     frame=single,                % add a frame around the code
     breaklines=true,             % break long lines
+    linewidth=6.5in,             % max line length
     breakatwhitespace=false      % breaks anywhere
 }
 \chapter{Listings}
+% fix section and subsection so that new pages are created in each case
+\let\realsection\section
+\renewcommand\section{\vfill\null\newpage\realsection}
+\let\realsubsection\subsection
+\renewcommand\subsection{\vfill\null\newpage\realsubsection}
