@@ -63,13 +63,14 @@ README := HTML # not really, just for testing language detection
 # get language from listing path
 LISTING ?=
 FILEPATH := ../$(REPONAME)/$(LISTING)
+CAPTION := $(subst _,\_,$(FILEPATH))
 FILENAME := $(notdir $(LISTING))
 SUFFIX := $(suffix $(FILENAME))
 LANGUAGE := $(or $($(SUFFIX)),$($(FILENAME)))
 ifeq ($(SHOWENV),)
 	# not exporting all globals---but at least those needed by templates
 	export REPONAME AUTHOR PUBLISHER BOOKTITLE LANGUAGE LISTING \
-	 FILEPATH SECTION
+	 FILEPATH SECTION CAPTION
 else
 	export
 endif
