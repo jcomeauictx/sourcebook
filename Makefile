@@ -1,17 +1,21 @@
 BUILD ?= xacpi
 # BORDER used by ImageMagick convert to whiteout anything in margins
-BORDER ?= 36
+# change BGCOLOR to something noticeable like green for debugging
+BGCOLOR ?= white
 TYPE := $(suffix $(BUILD))
 # valid BUILDTYPEs are pdf, kindle, and paperback
 # this approach can be problematic if dots are in repo names
 ifeq ($(TYPE),)
- BUILDTYPE := pdf
- BORDER ?= 60
+ BUILDTYPE ?= pdf
 else
  BUILDTYPE=$(replace .,,$(TYPE))
 endif
 ifeq ($(BUILDTYPE),kindle)
  BORDER ?= 70
+else ifeq ($(BUILDTYPE),pdf)
+ BORDER ?= 58
+else ifeq ($(BUILDTYPE),paperback)
+ BORDER ?= 50
 endif
 MAKE := make -s
 REPONAME ?= $(BUILD:.$(BUILDTYPE)=)
@@ -146,7 +150,7 @@ kindle paperback pdf:
 	 pdfseparate $< $$tempdir/page%04d.pdf; \
 	 for page in $$tempdir/page*; do \
 	  convert $$page -gravity east -chop $(BORDER)x \
-	   -background green \
+	   -background $(BGCOLOR) \
 	   -splice $(BORDER)x \
 	   $$page.withborder.pdf; \
 	 done; \
@@ -156,7 +160,7 @@ kindle paperback pdf:
 	 pdfseparate $< $$tempdir/page%04d.pdf; \
 	 for page in $$tempdir/page*; do \
 	  convert $$page -shave $(BORDER)x$(BORDER) \
-	   -bordercolor green \
+	   -bordercolor $(BGCOLOR) \
 	   -border $(BORDER) \
 	   $$page.withborder.pdf; \
 	 done; \
