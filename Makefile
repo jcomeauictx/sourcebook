@@ -151,7 +151,7 @@ kindle paperback pdf:
 # so, best to use whiteout's `convert` command only on the necessary
 # pages before running pdunite. That way the bad print is only on the
 # affected pages.
-%.whiteout.pdf: %.pdf
+%.whiteout.pdf: %.pdf .FORCE
 	tempdir=$$(mktemp -d); \
 	 pdfseparate $< $$tempdir/page%04d.pdf; \
 	 for page in $$tempdir/page*; do \
@@ -161,6 +161,7 @@ kindle paperback pdf:
 	   $$page.withborder.pdf; \
 	 done; \
 	pdfunite $$tempdir/*.withborder.pdf $@
+	xpdf $@
 %.borders.pdf: %.pdf
 	tempdir=$$(mktemp -d); \
 	 pdfseparate $< $$tempdir/page%04d.pdf; \
@@ -172,3 +173,4 @@ kindle paperback pdf:
 	 done; \
 	pdfunite $$tempdir/*.withborder.pdf $@
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
+.FORCE:
