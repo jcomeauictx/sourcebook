@@ -1,6 +1,7 @@
 \lstset{
     numbers=left,                % line numbers on the left
     numberstyle=\small,          % style of line numbers
+    showstringspaces=false,      % do not show visible representation of spaces
     stepnumber=1,                % show every line number
     numbersep=5pt,               % gap between numbers and code
     backgroundcolor=\color{white}, % background color
@@ -8,7 +9,8 @@
     basicstyle=\ttfamily,        % code font and (optionally) size
     frame=single,                % add a frame around the code
     breaklines=true,             % break long lines
-    linewidth=5in,               % no lines longer than 4 inches
+    breakindent=0pt,             % don't indent broken part of lines
+    linewidth=5in,               % max line length
     breakatwhitespace=false      % breaks anywhere
 }
 \chapter{Listings}

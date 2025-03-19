@@ -184,5 +184,11 @@ kindle paperback letter:
 	   $$page.withborder.pdf; \
 	 done; \
 	pdfunite $$tempdir/*.withborder.pdf $@
+%.tdiff:  # compare templates to paperback
+	for ttype in bookstart cover intro license sources \
+	  source subdir trailer; do \
+	 echo diff $*.$$ttype.template.tex paperback.$$ttype.template.tex; \
+	 diff $*.$$ttype.template.tex paperback.$$ttype.template.tex; \
+	done
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 .FORCE:
