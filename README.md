@@ -43,5 +43,8 @@ DeepSeek gave me the first few lines of tex code.
   margins. (Now gets run by default as of 2025-03-19).
 * TeX markdown cannot properly process `[text](url)` constructs with
   newlines anywhere within, but github markdown can.
-* github markdown also requires something (I used a line) below the table,
-  otherwise text below it gets sucked into table cells.
+* to get table to show up correctly in both github and TeX, without turning
+  the text above into a header, there must be an empty space (not a line
+  of hyphens, which tell github the above text is a new section header), and
+  a line of hyphens below, which prevents github (and possibly TeX as well)
+  from incorporating text below the table into table cells.
