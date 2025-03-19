@@ -39,4 +39,8 @@ DeepSeek gave me the first few lines of tex code.
   myth. If you divide the "spine shown" column by the number of pages,
   the result in all of the above cases is almost exactly .00225 inches.
 * Check the Makefile for whiteout options when text bleeds into the
-  margins.
+  margins. (Now gets run by default as of 2025-03-19).
+* TeX markdown cannot properly process `[text](url)` constructs with
+  newlines anywhere within, but github markdown can.
+* github markdown also requires something (I used a line) below the table,
+  otherwise text below it gets sucked into table cells.
