@@ -166,10 +166,9 @@ kindle paperback letter:
 	  echo processing $$page... >&2; \
 	  if [[ $(PAGES) = ALL || $(PAGES) = *$$(basename $$page)* ]]; then \
 	   echo converting $$page... >&2; \
-	   convert $$page -gravity east -chop $(BORDER)x \
-	    -background $(BGCOLOR) \
-	    -splice $(BORDER)x \
-	    $$page.withborder.pdf; \
+	   pdftops $$page; \
+	   sed -i -e '/^%%Copyright/r $(PWD)/clip.ps' $${page%%.pdf}.ps; \
+	   ps2pdf $${page%%.pdf}.ps $$page.withborder.pdf; \
 	  else \
 	   echo skipping page $$page... >&2; \
 	   mv $$page $$page.unchanged.withborder.pdf; \
