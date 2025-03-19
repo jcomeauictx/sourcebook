@@ -45,6 +45,6 @@ DeepSeek gave me the first few lines of tex code.
   newlines anywhere within, but github markdown can.
 * to get table to show up correctly in both github and TeX, without turning
   the text above into a header, there must be an empty space (not a line
-  of hyphens, which tell github the above text is a new section header), and
+  of hyphens, which tells github the above text is a new section header), and
   a line of hyphens below, which prevents github (and possibly TeX as well)
   from incorporating text below the table into table cells.
