@@ -26,7 +26,7 @@ DeepSeek gave me the first few lines of tex code.
   24 page book, for a total width of 12.304". The number of pages determines
   the spine safe area, but it's not linear; 24 and 50 pages both show as 0,
   for example, but the total width is different.
-  --------------------------------------------------------------------
+
   |Pages|Spine safe area|Spine expected|Spine shown|Total width shown|
   |-----|---------------|--------------|-----------|-----------------|
   |   24|              0|          .062|       .054|           12.304|
