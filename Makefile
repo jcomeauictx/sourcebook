@@ -31,7 +31,7 @@ else
  AUTHOR ?= John Comeau
 endif
 PUBLISHER ?= lotecnotec press
-FILES ?= $(shell cd ../$(REPONAME) && git ls-files)
+FILES ?= $(filter-out LICENSE, $(shell cd ../$(REPONAME) && git ls-files))
 SUBDIRS ?= $(sort $(dir $(FILES)))
 SUBDIR ?=
 SECTION := $(subst _,\_,$(SUBDIR))
@@ -81,9 +81,7 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	for subdir in $(SUBDIRS); do \
 	 $(MAKE) SUBDIR=$$subdir $(BUILD).subdir >> $@; \
 	 for file in $(FILES); do \
-	  if [ "$$file" != "LICENSE" ]; then \
-	   $(MAKE) SUBDIR=$$subdir LISTING=$$file $(BUILD).listing >> $@; \
-	  fi; \
+	  $(MAKE) SUBDIR=$$subdir LISTING=$$file $(BUILD).listing >> $@; \
 	 done; \
 	done
 	cat $| >> $@
