@@ -1,13 +1,14 @@
 % adapted from https://www.overleaf.com/learn/latex/Sections_and_chapters
 \documentclass{book}
-\sloppy
-\usepackage[letterpaper,portrait,margin=1in]{geometry}
+% sloppy or emergencystretch needed for markdown processor
+\sloppy  % helps READMEs and listings lines wrap
+\usepackage[paperwidth=6in, paperheight=9in,margin=0.5in]{geometry}
 \usepackage{parskip}  % vertical spacing rather than indentation of paragraphs
-\usepackage{xstring}
-\usepackage[pipeTables,tableCaptions]{markdown}
-\usepackage{verbatim}
-\usepackage{listings}
-\usepackage{xcolor}
+\usepackage{xstring}  % string length (\StrLen) for ifthenelse actions
+\usepackage[pipeTables,tableCaptions]{markdown}  % for README.md
+\usepackage{verbatim}  % allow reading in files with \verbatiminput{filename}
+\usepackage{listings}  % for source code listings
+\usepackage{xcolor}  % for use of colored keywords etc.
 \title{$BOOKTITLE}
 \author{$AUTHOR}
 \date{\today}
