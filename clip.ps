@@ -1,0 +1,14 @@
+/showpage load /realshowpage exch def
+/showpage {
+        gsave
+        10 dict begin
+        /inch {72 mul} def
+        8 inch 0 moveto
+        0 11 inch rlineto
+        .5 inch 0 inch rlineto
+        0 inch -11 inch rlineto
+        closepath 1 setgray fill
+        end
+        grestore
+        realshowpage
+} bind def
