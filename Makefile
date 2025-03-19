@@ -110,11 +110,12 @@ distclean: clean
 	rm -f *.pdf $(filter-out $(wildcard *.template.tex), $(wildcard *.tex))
 	rm -f *.jpg
 env:
-ifeq ($(SHOWENV),)
-	$(MAKE) SHOWENV=1 $@
-else
-	$@ | egrep -v '^(LS_COLORS)='
-endif
+	echo SHOWENV=$(SHOWENV) >&2; \
+	if [ -z "$(SHOWENV)" ]; then \
+	 $(MAKE) SHOWENV=1 $@; \
+	else \
+	 $@ | egrep -v '^(LS_COLORS)='; \
+	fi
 push:
 	git push origin
 	git push githost
