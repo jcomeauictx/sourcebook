@@ -2,7 +2,10 @@
 \documentclass{book}
 % sloppy or emergencystretch needed for markdown processor
 \sloppy  % helps READMEs and listings lines wrap
-\usepackage[paperwidth=6in,paperheight=9in,margin=0.5in,includehead]{geometry}
+\usepackage[papersize={6in,9in},
+ vmargin=.5in,
+ hmargin={.6in,.4in},
+ includeheadfoot]{geometry}
 \usepackage{parskip}  % vertical spacing rather than indentation of paragraphs
 \usepackage{xstring}  % string length (\StrLen) for ifthenelse actions
 \usepackage[pipeTables,tableCaptions]{markdown}  % for README.md
