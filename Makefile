@@ -31,7 +31,7 @@ else
  AUTHOR ?= John Comeau
 endif
 PUBLISHER ?= lotecnotec press
-FILES ?= $(filter-out LICENSE, $(shell cd ../$(REPONAME) && git ls-files))
+FILES ?= $(shell cd ../$(REPONAME) && git ls-files)
 SUBDIRS ?= $(sort $(dir $(FILES)))
 SUBDIR ?=
 SECTION := $(subst _,\_,$(SUBDIR))
@@ -81,7 +81,9 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	for subdir in $(SUBDIRS); do \
 	 $(MAKE) SUBDIR=$$subdir $(BUILD).subdir >> $@; \
 	 for file in $(FILES); do \
-	  $(MAKE) SUBDIR=$$subdir LISTING=$$file $(BUILD).listing >> $@; \
+	  if [ "$$file" != "LICENSE" ]; then \
+	   $(MAKE) SUBDIR=$$subdir LISTING=$$file $(BUILD).listing >> $@; \
+	  fi; \
 	 done; \
 	done
 	cat $| >> $@
@@ -103,8 +105,6 @@ $(REPONAME).%.listing: %.source.template.tex
 	else \
 	 echo % $(LISTING) not in $(SUBDIR); \
 	fi
-test: convert
-	./$< $(FILES)
 clean:
 	rm -f *.aux *.log *.toc *.lua *.out *.err
 	rm -rf _markdown_*
