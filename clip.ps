@@ -6,7 +6,7 @@
 	/white {1 setgray} def
 	currentpagedevice /PageSize get dup 0 get /pagewidth exch def
 	1 get /pageheight exch def
-	/margin 0.5 inch def
+	/margin pagewidth .07 mul def  % gives .42" on 6" page, .6" on 8.5" page
         pagewidth margin sub 0 moveto
         0 pageheight inch rlineto
         margin inch 0 inch rlineto
