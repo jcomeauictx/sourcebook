@@ -35,7 +35,7 @@ DeepSeek gave me the first few lines of tex code.
   |  100|           .100|          .162|       .225|           12.475|
   |  200|           .325|          .387|       .450|           12.700|
   |  500|          1.001|         1.063|      1.126|           12.376|
-  --------------------------------------------------------------------
+
   Thus, in fact, the calculation *is* linear, and the spine margin is a
   myth. If you divide the "spine shown" column by the number of pages,
   the result in all of the above cases is almost exactly .00225 inches.
@@ -46,5 +46,6 @@ DeepSeek gave me the first few lines of tex code.
 * to get table to show up correctly in both github and TeX, without turning
   the text above into a header, there must be an empty space (not a line
   of hyphens, which tells github the above text is a new section header), and
-  a line of hyphens below, which prevents github (and possibly TeX as well)
-  from incorporating text below the table into table cells.
+  something (I used a line of hyphens below, but a space might work as well)
+  which prevents github (and possibly TeX as well) from incorporating text
+  below the table into table cells.
