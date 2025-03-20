@@ -2,9 +2,15 @@
 \documentclass{book}
 % sloppy or emergencystretch needed for markdown processor
 \sloppy  % helps READMEs and listings lines wrap
+% this worked originally:
+%\usepackage[paperwidth=6in, paperheight=9in,margin=0.5in]{geometry}
+% but a 112-page book necessitated "gutter margins" according to Amazon, which
+% the geometry package calls "bindingoffset".
+% NOTE: "twoside" should be automatic when using \documentclass{book}
+% NOTE: "margin" is shorthand for top, bottom, left, and right margins
 \usepackage[papersize={6in,9in},
- vmargin=.5in,
- hmargin={1in,.7in},
+ margin=.5in,
+ bindingoffset=.3in,
  includeheadfoot]{geometry}
 \usepackage{parskip}  % vertical spacing rather than indentation of paragraphs
 \usepackage{xstring}  % string length (\StrLen) for ifthenelse actions

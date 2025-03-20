@@ -51,3 +51,13 @@ rapidly.
   something (I used a line of hyphens below, but a space might work as well)
   which prevents github (and possibly TeX as well) from incorporating text
   below the table into table cells.
+* Books with a large number of pages and listings of files with many lines
+  may affect the margins. The margins specified by the geometry package
+  `margin`, `hmargin` and `vmargin`, or `top`, `bottom`, `left`, and `right`,
+  will not necessarily be honored. Adding what Amazon calls a "gutter" margin,
+  and geometry calls `bindingoffset`, complicates matters further. The listings
+  package puts line numbers into the margin space, so enough extra room
+  needs to be allocated. Also, the "linewidth" specifier in the listings
+  package will override the right margin. Finally, the margin calculated
+  by clip.ps will chop the right border off listings if the linewidth is
+  set too high.
