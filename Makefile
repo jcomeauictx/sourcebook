@@ -1,4 +1,4 @@
-# bashisms in Makefile, cannot use old sh
+# bashisms in Makefile, cannot use plain sh
 SHELL := /bin/bash
 BUILD ?= xacpi
 # BORDER used by ImageMagick convert to whiteout anything in margins
@@ -72,7 +72,7 @@ ifeq ($(SHOWENV),)
 	export REPONAME AUTHOR PUBLISHER BOOKTITLE LANGUAGE LISTING \
 	 FILEPATH SECTION CAPTION
 else
-	export
+	export $(filter-out FILES,$(.VARIABLES))
 endif
 default: letter
 all: env $(BUILD).view $(BUILD).save
