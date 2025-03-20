@@ -24,6 +24,7 @@ else ifeq ($(BUILDTYPE),paperback)
 endif
 MAKE := make -s
 REPONAME ?= $(BUILD:.$(BUILDTYPE)=)
+REPOPATH := ../$(REPONAME)
 BOOKTITLE ?= $(REPONAME)
 ifeq ($(REPONAME),SATsign)
  AUTHOR ?= Christian Cruz and John Comeau
@@ -31,8 +32,7 @@ else
  AUTHOR ?= John Comeau
 endif
 PUBLISHER ?= lotecnotec press
-FILES ?= $(filter-out LICENSE, $(shell cd ../$(REPONAME) && git ls-files))
-SUBDIRS ?= $(sort $(dir $(FILES)))
+SUBDIRS ?= $(sort $(dir $(shell cd $(REPOPATH) && git ls-files)))
 SUBDIR ?=
 SECTION := $(subst _,\_,$(SUBDIR))
 PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
@@ -62,7 +62,7 @@ Makefile := make
 README := HTML # not really, just for testing language detection
 # get language from listing path
 LISTING ?=
-FILEPATH := ../$(REPONAME)/$(LISTING)
+FILEPATH := $(REPOPATH)/$(SUBDIR)/$(LISTING)
 CAPTION := $(subst ../,,$(subst _,\_,$(FILEPATH)))
 FILENAME := $(notdir $(LISTING))
 SUFFIX := $(suffix $(FILENAME))
@@ -72,7 +72,7 @@ ifeq ($(SHOWENV),)
 	export REPONAME AUTHOR PUBLISHER BOOKTITLE LANGUAGE LISTING \
 	 FILEPATH SECTION CAPTION
 else
-	export $(filter-out FILES,$(.VARIABLES))
+	export $(.VARIABLES)
 endif
 default: letter
 all: env $(BUILD).view $(BUILD).save
@@ -80,9 +80,6 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
 	for subdir in $(SUBDIRS); do \
 	 $(MAKE) SUBDIR=$$subdir $(BUILD).subdir >> $@; \
-	 for file in $(FILES); do \
-	  $(MAKE) SUBDIR=$$subdir LISTING=$$file $(BUILD).listing >> $@; \
-	 done; \
 	done
 	cat $| >> $@
 %.cover.jpg: %.cover.pdf
@@ -92,16 +89,15 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cp -f $+ $(HOME)/sourcebook/
 $(REPONAME).%.subdir: %.subdir.template.tex
 	envsubst < $<
+	for file in $$(cd $(REPOPATH)/$(SUBDIR); git ls-files ':(glob)*'); do \
+	 $(MAKE) SUBDIR=$$subdir LISTING=$$file $(BUILD).listing; \
+	done
 $(REPONAME).%.listing: %.source.template.tex
-	@echo % conditionally making listing for $(LISTING) in $(SUBDIR)
-	if [ "$$(dirname $(LISTING))/" = "$(SUBDIR)" ]; then \
-	 if [ "$($(SUFFIX))" != "BAD" ]; then \
-	  envsubst < $<; \
-	 else \
-	  echo % $(FILENAME) is not a valid listing; \
-	 fi; \
+	@echo % conditionally making listing for $(FILEPATH)
+	if [ "$($(SUFFIX))" != "BAD" ]; then \
+	 envsubst < $<; \
 	else \
-	 echo % $(LISTING) not in $(SUBDIR); \
+	 echo % $(FILENAME) is not a valid listing; \
 	fi
 clean:
 	rm -f *.aux *.log *.toc *.lua *.out *.err
