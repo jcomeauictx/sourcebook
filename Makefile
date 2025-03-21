@@ -41,7 +41,7 @@ PUBLISHER ?= lotecnotec press
 FILES ?= $(shell cd $(REPOPATH) && $(LSREPO))
 SUBDIRS ?= $(sort $(dir $(FILES)))
 CHECK := $(shell echo SUBDIR before unquote: $(SUBDIR) >&2)
-SUBDIR := $(subst %20,\ ,$(SUBDIR))
+SUBDIR ?=
 CHECK := $(shell echo SUBDIR before unquote: $(SUBDIR) >&2)
 SECTION := $(subst _,\_,$(SUBDIR))
 PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
@@ -108,7 +108,7 @@ NimbusMonoPS-Bold := BAD
 NimbusSans-BoldItalic := BAD
 ArtifexBullet := BAD
 # get language from listing path
-LISTING := $(subst %20,\ ,$(LISTING))
+LISTING ?=
 RELPATH := $(SUBDIR)$(LISTING)
 FILEPATH := $(REPOPATH)/$(SUBDIR)$(LISTING)
 CAPTION := $(subst ./,,$(subst _,\_,$(RELPATH)))
@@ -138,7 +138,7 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 $(REPONAME).%.subdir: %.subdir.template.tex
 	envsubst < $<
 	for file in $$(cd "$(REPOPATH)/$(SUBDIR)"; $(LS)); do \
-	 $(MAKE) SUBDIR="$(SUBDIR)" LISTING="$${file//%20/ /}" \
+	 $(MAKE) SUBDIR="$(SUBDIR)" LISTING="$${file//%20/ }" \
 	  $(BUILD).listing; \
 	done
 $(REPONAME).%.listing: %.source.template.tex

@@ -1,2 +1,0 @@
-This is just plain text, to pass the Makefile filters and test handling of
-spaces in filenames.
