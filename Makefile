@@ -58,11 +58,49 @@ FINAL_PART := $(BUILD).trailer.tex
 .crt := BAD
 .0 := BAD
 .exe := BAD
+.icc := BAD
+.png := BAD
+.jpg := BAD
+.tiff := BAD
+.pgm := BAD
+.ppm := BAD
+.gif := BAD
+.xls := BAD
+.ttf := BAD
+.xps := BAD
 # rename .min.js files to .minjs: will this work though?
 .minjs := BAD
 # mapping non-suffixed filenames to languages
 Makefile := make
 README := HTML # not really, just for testing language detection
+# binary font resources from casperscript that need to be skipped
+# (until I figure out a better way of binary file detection)
+NimbusMonoPS-Italic := BAD
+Z003-MediumItalic := BAD
+NimbusMonoPS-Regular := BAD
+URWGothic-Demi := BAD
+NimbusSansNarrow-Regular := BAD
+NimbusRoman-Italic := BAD
+NimbusSansNarrow-Bold := BAD
+P052-BoldItalic := BAD
+URWGothic-DemiOblique := BAD
+C059-Roman := BAD
+P052-Roman := BAD
+NimbusMonoPS-BoldItalic := BAD
+NimbusSansNarrow-BoldOblique := BAD
+C059-Italic := BAD
+NimbusSans-Bold := BAD
+NimbusRoman-Bold := BAD
+NimbusSansNarrow-Oblique := BAD
+NimbusRoman-BoldItalic := BAD
+NimbusSans-Italic := BAD
+URWBookman-Demi := BAD
+P052-Italic := BAD
+C059-Bold := BAD
+URWBookman-LightItalic := BAD
+NimbusMonoPS-Bold := BAD
+NimbusSans-BoldItalic := BAD
+ArtifexBullet := BAD
 # get language from listing path
 LISTING ?=
 FILEPATH := $(REPOPATH)/$(SUBDIR)$(LISTING)
