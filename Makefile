@@ -62,8 +62,8 @@ Makefile := make
 README := HTML # not really, just for testing language detection
 # get language from listing path
 LISTING ?=
-FILEPATH := $(REPOPATH)/$(SUBDIR)/$(LISTING)
-CAPTION := $(subst ../,,$(subst _,\_,$(FILEPATH)))
+FILEPATH := $(REPOPATH)/$(SUBDIR)$(LISTING)
+CAPTION := $(subst _,\_,$(SUBDIR)$(LISTING))
 FILENAME := $(notdir $(LISTING))
 SUFFIX := $(suffix $(FILENAME))
 LANGUAGE := $(or $($(SUFFIX)),$($(FILENAME)))
@@ -90,11 +90,11 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 $(REPONAME).%.subdir: %.subdir.template.tex
 	envsubst < $<
 	for file in $$(cd $(REPOPATH)/$(SUBDIR); git ls-files ':(glob)*'); do \
-	 $(MAKE) SUBDIR=$$subdir LISTING=$$file $(BUILD).listing; \
+	 $(MAKE) SUBDIR=$(SUBDIR) LISTING=$$file $(BUILD).listing; \
 	done
 $(REPONAME).%.listing: %.source.template.tex
-	@echo % conditionally making listing for $(FILEPATH)
-	if [ "$($(SUFFIX))" != "BAD" ]; then \
+	@echo % conditionally making listing for $(FILEPATH) \($(CAPTION)\)
+	if [[ "$($(SUFFIX))" != "BAD" && "$(CAPTION)" != "LICENSE" ]]; then \
 	 envsubst < $<; \
 	else \
 	 echo % $(FILENAME) is not a valid listing; \
