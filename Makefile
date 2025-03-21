@@ -4,11 +4,9 @@ BUILD ?= xacpi
 # deal with potential spaces in path names (looking at you, ghostscript)
 # (better approach adapted from https://stackoverflow.com/a/67346778/493161)
 LSREPO := git ls-files --eol | \
- awk '$$1 == "i/lf" {print $$4}' | \
- tr ' ' +
+ awk '$$1 == "i/lf" {for (i=4;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
 LS := git ls-files --eol ':(glob)*' | \
- awk '$$1 == "i/lf" {print $$4}' | \
- tr ' ' +
+ awk '$$1 == "i/lf" {for (i=4;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
 # BORDER used by ImageMagick convert to whiteout anything in margins
 # change BGCOLOR to something noticeable like green for debugging
 BGCOLOR ?= white
@@ -42,7 +40,9 @@ endif
 PUBLISHER ?= lotecnotec press
 FILES ?= $(shell cd $(REPOPATH) && $(LSREPO))
 SUBDIRS ?= $(sort $(dir $(FILES)))
-SUBDIR ?=
+CHECK := $(shell echo SUBDIR before unquote: $(SUBDIR) >&2)
+SUBDIR := $(subst %20,\ ,$(SUBDIR))
+CHECK := $(shell echo SUBDIR before unquote: $(SUBDIR) >&2)
 SECTION := $(subst _,\_,$(SUBDIR))
 PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
 PARTS += $(BUILD).sources.tex
@@ -108,9 +108,10 @@ NimbusMonoPS-Bold := BAD
 NimbusSans-BoldItalic := BAD
 ArtifexBullet := BAD
 # get language from listing path
-LISTING ?=
+LISTING := $(subst %20,\ ,$(LISTING))
+RELPATH := $(SUBDIR)$(LISTING)
 FILEPATH := $(REPOPATH)/$(SUBDIR)$(LISTING)
-CAPTION := $(subst ./,,$(subst _,\_,$(SUBDIR)$(LISTING)))
+CAPTION := $(subst ./,,$(subst _,\_,$(RELPATH)))
 FILENAME := $(notdir $(LISTING))
 SUFFIX := $(suffix $(FILENAME))
 LANGUAGE := $(or $($(SUFFIX)),$($(FILENAME)))
