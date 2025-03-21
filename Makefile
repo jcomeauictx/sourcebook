@@ -2,8 +2,8 @@
 SHELL := /bin/bash
 BUILD ?= xacpi
 # deal with potential spaces in path names (looking at you, ghostscript)
-LSREPO := git ls-files -z | xargs -0 printf '%q\n'
-LS := git ls-files -z ':(glob)*' | xargs -0 printf '%q\n'
+LSREPO := git ls-files | tr ' ' +
+LS := git ls-files ':(glob)*' | tr ' ' +
 # BORDER used by ImageMagick convert to whiteout anything in margins
 # change BGCOLOR to something noticeable like green for debugging
 BGCOLOR ?= white
