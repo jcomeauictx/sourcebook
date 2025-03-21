@@ -4,10 +4,10 @@ BUILD ?= xacpi
 # deal with potential spaces in path names (looking at you, ghostscript)
 # (better approach adapted from https://stackoverflow.com/a/67346778/493161)
 LSREPO := git ls-files --eol | \
- awk '$$1 = "i/lf" {print $$4}' | \
+ awk '$$1 == "i/lf" {print $$4}' | \
  tr ' ' +
 LS := git ls-files --eol ':(glob)*' | \
- awk '$$1 = "i/lf" {print $$4}' | \
+ awk '$$1 == "i/lf" {print $$4}' | \
  tr ' ' +
 # BORDER used by ImageMagick convert to whiteout anything in margins
 # change BGCOLOR to something noticeable like green for debugging
@@ -40,7 +40,8 @@ else
  AUTHOR ?= John Comeau
 endif
 PUBLISHER ?= lotecnotec press
-SUBDIRS ?= $(sort $(dir $(shell cd $(REPOPATH) && $(LSREPO))))
+FILES ?= $(shell cd $(REPOPATH) && $(LSREPO))
+SUBDIRS ?= $(sort $(dir $(FILES)))
 SUBDIR ?=
 SECTION := $(subst _,\_,$(SUBDIR))
 PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
