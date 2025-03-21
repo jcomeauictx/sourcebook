@@ -63,7 +63,7 @@ README := HTML # not really, just for testing language detection
 # get language from listing path
 LISTING ?=
 FILEPATH := $(REPOPATH)/$(SUBDIR)$(LISTING)
-CAPTION := $(subst _,\_,$(SUBDIR)$(LISTING))
+CAPTION := $(subst ./,,$(subst _,\_,$(SUBDIR)$(LISTING)))
 FILENAME := $(notdir $(LISTING))
 SUFFIX := $(suffix $(FILENAME))
 LANGUAGE := $(or $($(SUFFIX)),$($(FILENAME)))
