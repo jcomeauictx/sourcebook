@@ -127,7 +127,7 @@ all: env $(BUILD).view $(BUILD).save
 $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
 	for subdir in $(SUBDIRS); do \
-	 $(MAKE) SUBDIR=$$subdir $(BUILD).subdir >> $@; \
+	 $(MAKE) SUBDIR="$${subdir//%20/ }" $(BUILD).subdir >> $@; \
 	done
 	cat $| >> $@
 %.cover.jpg: %.cover.pdf
@@ -137,8 +137,9 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cp -f $+ $(HOME)/sourcebook/
 $(REPONAME).%.subdir: %.subdir.template.tex
 	envsubst < $<
-	for file in $$(cd $(REPOPATH)/$(SUBDIR); $(LS)); do \
-	 $(MAKE) SUBDIR=$(SUBDIR) LISTING=$$file $(BUILD).listing; \
+	for file in $$(cd "$(REPOPATH)/$(SUBDIR)"; $(LS)); do \
+	 $(MAKE) SUBDIR="$(SUBDIR)" LISTING="$${file//%20/ /}" \
+	  $(BUILD).listing; \
 	done
 $(REPONAME).%.listing: %.source.template.tex
 	@echo % conditionally making listing for $(FILEPATH) \($(CAPTION)\)
