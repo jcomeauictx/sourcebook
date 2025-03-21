@@ -38,8 +38,7 @@ else
  AUTHOR ?= John Comeau
 endif
 PUBLISHER ?= lotecnotec press
-FILES ?= $(shell cd $(REPOPATH) && $(LSREPO))
-SUBDIRS ?= $(sort $(dir $(FILES)))
+SUBDIRS ?= $(sort $(dir $(shell cd $(REPOPATH) && $(LSREPO))))
 CHECK := $(shell echo SUBDIR before unquote: $(SUBDIR) >&2)
 SUBDIR ?=
 CHECK := $(shell echo SUBDIR before unquote: $(SUBDIR) >&2)
