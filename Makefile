@@ -1,6 +1,9 @@
 # bashisms in Makefile, cannot use plain sh
 SHELL := /bin/bash
 BUILD ?= xacpi
+# deal with potential spaces in path names (looking at you, ghostscript)
+LSREPO := git ls-files -z | xargs -0 printf '%q\n'
+LS := git ls-files -z ':(glob)*' | xargs -0 printf '%q\n'
 # BORDER used by ImageMagick convert to whiteout anything in margins
 # change BGCOLOR to something noticeable like green for debugging
 BGCOLOR ?= white
@@ -32,7 +35,7 @@ else
  AUTHOR ?= John Comeau
 endif
 PUBLISHER ?= lotecnotec press
-SUBDIRS ?= $(sort $(dir $(shell cd $(REPOPATH) && git ls-files)))
+SUBDIRS ?= $(sort $(dir $(shell cd $(REPOPATH) && $(LSREPO))))
 SUBDIR ?=
 SECTION := $(subst _,\_,$(SUBDIR))
 PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
@@ -89,7 +92,7 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cp -f $+ $(HOME)/sourcebook/
 $(REPONAME).%.subdir: %.subdir.template.tex
 	envsubst < $<
-	for file in $$(cd $(REPOPATH)/$(SUBDIR); git ls-files ':(glob)*'); do \
+	for file in $$(cd $(REPOPATH)/$(SUBDIR); $(LS)); do \
 	 $(MAKE) SUBDIR=$(SUBDIR) LISTING=$$file $(BUILD).listing; \
 	done
 $(REPONAME).%.listing: %.source.template.tex
