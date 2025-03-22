@@ -107,9 +107,9 @@ $(REPONAME).%.listing: %.source.template.tex
 	@echo % conditionally making listing for $(FILEPATH) \($(CAPTION)\)
 	@echo -n '% '
 	@echo -n cd "$(dir $(FILEPATH)) && "; echo "$(LS)" "$(FILEPATH)"
-	cd "$$(dirname '$(FILEPATH)')" && $(LS) "$(notdir '$(FILEPATH)')" >&2
+	cd "$$(dirname '$(FILEPATH)')" && $(LS) "$$(basename '$(FILEPATH)')" >&2
 	@echo -n '% '
-	cd "$$(dirname '$(FILEPATH)')" && $(LS) "$(notdir '$(FILEPATH)')"
+	cd "$$(dirname '$(FILEPATH)')" && $(LS) "$$(basename '$(FILEPATH)')"
 	@echo  # in case the above failed, don't comment out \subsection
 	if [[ "$(CAPTION)" != "LICENSE" ]]; then \
 	 envsubst < $<; \
@@ -158,7 +158,11 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 %.view: %.pdf %.cover.pdf %.cover.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
 	mv -f $*.log $*.$(TIMESTAMP).log  # save first run's log to analyze
-	$(MAKE) $+
+	# the following inscrutable mess stolen from noosepapers, in turn
+	# stolen from somewhere on stackoverflow
+	set -euxo pipefail; \
+	{ $(MAKE) $+ 2>&1 1>&3 3>&- | tee $(@:.view=.make.err); } \
+	 3>&1 1>&2 | tee $(@:.view=.make.log)
 	xpdf $<
 	display $*.cover.jpg
 %.view: %.pdf
