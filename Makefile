@@ -1,6 +1,7 @@
 # bashisms in Makefile, cannot use plain sh
 SHELL := /bin/bash
 BUILD ?= xacpi
+TIMESTAMP = $(shell date +%Y%m%d%H%M%S)
 # deal with potential spaces in path names (looking at you, ghostscript)
 # (better approach adapted from https://stackoverflow.com/a/67346778/493161)
 # however, `--eol` sometimes returned two fields for eolattr, so am using
@@ -148,6 +149,7 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	fi
 %.view: %.pdf %.cover.pdf %.cover.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
+	mv -f $*.log $*.$(TIMESTAMP).log  # save first run's log to analyze
 	$(MAKE) $+
 	xpdf $<
 	display $*.cover.jpg
@@ -199,5 +201,9 @@ kindle paperback letter:
 japanese.pdf: evil\ test\ directory/japanese.tex
 	pdflatex "$<"
 evil: japanese.view
+%.js.disable: %.js
+	# changes endlines to DOS \r\n so as to disable listings
+	# specifically for tinyseg.js, which has CJK characters
+	sed -i 's/$$/\r/' $<
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 .FORCE:
