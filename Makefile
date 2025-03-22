@@ -195,5 +195,8 @@ kindle paperback letter:
 	 echo diff $*.$$ttype.template.tex paperback.$$ttype.template.tex; \
 	 diff $*.$$ttype.template.tex paperback.$$ttype.template.tex; \
 	done
+japanese.pdf: evil\ test\ directory/japanese.tex
+	pdflatex "$<"
+evil: japanese.view
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 .FORCE:
