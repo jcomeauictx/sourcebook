@@ -106,9 +106,11 @@ $(REPONAME).%.listing: %.source.template.tex
 	@echo 'FILEPATH: "$(FILEPATH)", CAPTION: "$(CAPTION)"' >&2
 	@echo % conditionally making listing for $(FILEPATH) \($(CAPTION)\)
 	@echo -n '% '
-	@echo -n cd "$(dir $(FILEPATH)) && "; echo $(LS) "$(FILEPATH)"
+	@echo -n cd "$(dir $(FILEPATH)) && "; echo "$(LS)" "$(FILEPATH)"
+	cd "$$(dirname '$(FILEPATH)')" && $(LS) "$(notdir '$(FILEPATH)')" >&2
 	@echo -n '% '
 	cd "$$(dirname '$(FILEPATH)')" && $(LS) "$(notdir '$(FILEPATH)')"
+	@echo  # in case the above failed, don't comment out \subsection
 	if [[ "$(CAPTION)" != "LICENSE" ]]; then \
 	 envsubst < $<; \
 	else \
