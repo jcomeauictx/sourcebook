@@ -63,3 +63,5 @@ rapidly.
   set too high.
 * While watching a build for errors, you can grep out uninteresting lines, e.g.,
   `tail -f casperscript.letter.log | egrep -v '^(Underfull |$| ?\[[0-9]*\]$)'`
+* This might help with tinyseg.js:
+  <https://bbs.archlinux.org/viewtopic.php?id=72327>

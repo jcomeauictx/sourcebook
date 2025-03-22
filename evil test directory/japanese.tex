@@ -1,0 +1,26 @@
+% sample from https://bbs.archlinux.org/viewtopic.php?id=72327
+\documentclass[12pt]{article}
+%-------
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[english]{babel}
+%-------
+\usepackage[overlap, CJK]{ruby}
+\usepackage{CJKulem}
+\renewcommand{\rubysep}{-0.2ex}
+\newenvironment{Japanese}{%
+\CJKfamily{min}%
+\CJKtilde
+\CJKnospace}{}
+
+\begin{document}
+\parskip 3ex
+\parindent 0pt
+\begin{CJK}{UTF8}{}
+\begin{Japanese}
+日本Linux : 愛してる。
+Note : English works too
+\end{Japanese}
+\end{CJK}
+writting english here is also possible but not kanji and furigana...
+\end{document}
