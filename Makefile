@@ -47,9 +47,7 @@ else
 endif
 PUBLISHER ?= lotecnotec press
 SUBDIRS ?= $(sort $(dir $(shell cd $(REPOPATH) && $(LSREPO))))
-CHECK := $(shell echo SUBDIR before unquote: $(SUBDIR) >&2)
 SUBDIR ?=
-CHECK := $(shell echo SUBDIR before unquote: $(SUBDIR) >&2)
 SECTION := $(subst _,\_,$(SUBDIR))
 PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
 PARTS += $(BUILD).sources.tex
