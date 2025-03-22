@@ -12,9 +12,10 @@ TIMESTAMP = $(shell date +%Y%m%d%H%M%S)
 # NOTE: bonus of this approach is that min.js files typically have no line
 # ending, so they will also be excluded from source printouts.
 LSFORMAT := %(eolinfo:worktree). %(path)
-LSREPO := git ls-files --format='$(LSFORMAT)' | \
+LS := git ls-files --format='$(LSFORMAT)'
+LSREPO := $(LS) | \
  awk '$$1 == "lf." {for (i=2;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
-LS := git ls-files --format='$(LSFORMAT)' ':(glob)*' | \
+LSDIR := $(LS) ':(glob)*' | \
  awk '$$1 == "lf." {for (i=2;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
 # BORDER used by ImageMagick convert to whiteout anything in margins
 # change BGCOLOR to something noticeable like green for debugging
@@ -97,12 +98,14 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cp -f $+ $(HOME)/sourcebook/
 $(REPONAME).%.subdir: %.subdir.template.tex
 	envsubst < $<
-	for file in $$(cd "$(REPOPATH)/$(SUBDIR)"; $(LS)); do \
+	for file in $$(cd "$(REPOPATH)/$(SUBDIR)"; $(LSDIR)); do \
 	 $(MAKE) SUBDIR="$(SUBDIR)" LISTING="$${file//%20/ }" \
 	  $(BUILD).listing; \
 	done
 $(REPONAME).%.listing: %.source.template.tex
 	@echo % conditionally making listing for $(FILEPATH) \($(CAPTION)\)
+	@echo -n '% '
+	cd "$(dir $(FILEPATH))"; $(LS) "$(notdir(FILEPATH))"
 	if [[ "$(CAPTION)" != "LICENSE" ]]; then \
 	 envsubst < $<; \
 	else \
