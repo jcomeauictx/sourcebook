@@ -170,10 +170,12 @@ kindle paperback letter:
 # so, best to use whiteout's `convert` command only on the necessary
 # pages before running pdunite. That way the bad print is only on the
 # affected pages.
+# 2025-03-22 fixed broken pdfseparate using superuser.com/a/1814879/56582
 %.whiteout.pdf: %.pdf .FORCE
 	tempdir=$$(mktemp -d); \
-	 pdfseparate $< $$tempdir/page%04d.pdf; \
-	 for page in $$tempdir/page*; do \
+	 pdftocairo -pdf $< $$tempdir/$(<F); \
+	 pdfseparate $$tempdir/$(<F) "$$tempdir/page.%08d.pdf"; \
+	 for page in $$tempdir/page.0*.pdf; do \
 	  echo processing $$page... >&2; \
 	  if [[ $(PAGES) = ALL || $(PAGES) = *$$(basename $$page)* ]]; then \
 	   echo converting $$page... >&2; \
