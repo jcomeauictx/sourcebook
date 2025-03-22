@@ -65,3 +65,36 @@ rapidly.
   `tail -f casperscript.letter.log | egrep -v '^(Underfull |$| ?\[[0-9]*\]$)'`
 * This might help with tinyseg.js:
   <https://bbs.archlinux.org/viewtopic.php?id=72327>
+* With a repository of sufficient size, such as casperscript, you will run out
+  of memory. Change the defaults to something higher, these are my current
+  choices:
+  ```
+  $ diff /usr/share/texlive/texmf-dist/web2c/texmf.cnf.orig /usr/share/texlive/texmf-dist/web2c/texmf.large.2025-03-22.cnf
+  795,797c795,797
+  < main_memory = 5000000 % words of inimemory available; also applies to inimf&mp
+  < extra_mem_top = 0     % extra high memory for chars, tokens, etc.
+  < extra_mem_bot = 0     % extra low memory for boxes, glue, breakpoints, etc.
+  ---
+  > main_memory = 8000000 % words of inimemory available; also applies to inimf&mp
+  > extra_mem_top = 100000000     % extra high memory for chars, tokens, etc.
+> extra_mem_bot = 200000000     % extra low memory for boxes, glue, breakpoints, etc.
+  811c811
+  < hash_extra = 600000
+  ---
+  > hash_extra = 6000000
+  815c815
+  < pool_size = 6250000
+  ---
+  > pool_size = 62500000
+  818c818
+  < string_vacancies = 90000
+  ---
+  > string_vacancies = 900000
+  820c820
+  < max_strings = 500000
+  ---
+  > max_strings = 5000000
+  830c830
+  < buf_size = 200000
+  ---
+  > buf_size = 2000000
