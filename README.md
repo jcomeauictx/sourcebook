@@ -61,3 +61,5 @@ rapidly.
   package will override the right margin. Finally, the margin calculated
   by clip.ps will chop the right border off listings if the linewidth is
   set too high.
+* While watching a build for errors, you can grep out uninteresting lines, e.g.,
+  `tail -f casperscript.letter.log | egrep -v '^(Underfull |$| ?\[[0-9]*\]$)'`

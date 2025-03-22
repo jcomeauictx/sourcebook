@@ -3,10 +3,18 @@ SHELL := /bin/bash
 BUILD ?= xacpi
 # deal with potential spaces in path names (looking at you, ghostscript)
 # (better approach adapted from https://stackoverflow.com/a/67346778/493161)
-LSREPO := git ls-files --eol | \
- awk '$$1 == "i/lf" {for (i=4;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
-LS := git ls-files --eol ':(glob)*' | \
- awk '$$1 == "i/lf" {for (i=4;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
+# however, `--eol` sometimes returned two fields for eolattr, so am using
+# format string instead
+# the dot after eolinfo is to have a non-space entry for things like symlinks,
+# which don't return a string. otherwise `awk` would again not have fixed
+# indices for the wanted fields.
+# NOTE: bonus of this approach is that min.js files typically have no line
+# ending, so they will also be excluded from source printouts.
+LSFORMAT := %(eolinfo:index). %(path)
+LSREPO := git ls-files --format='$(LSFORMAT)' | \
+ awk '$$1 == "lf." {for (i=2;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
+LS := git ls-files --format='$(LSFORMAT)' ':(glob)*' | \
+ awk '$$1 == "lf." {for (i=2;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
 # BORDER used by ImageMagick convert to whiteout anything in margins
 # change BGCOLOR to something noticeable like green for debugging
 BGCOLOR ?= white
