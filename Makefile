@@ -10,7 +10,7 @@ BUILD ?= xacpi
 # indices for the wanted fields.
 # NOTE: bonus of this approach is that min.js files typically have no line
 # ending, so they will also be excluded from source printouts.
-LSFORMAT := %(eolinfo:index). %(path)
+LSFORMAT := %(eolinfo:worktree). %(path)
 LSREPO := git ls-files --format='$(LSFORMAT)' | \
  awk '$$1 == "lf." {for (i=2;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
 LS := git ls-files --format='$(LSFORMAT)' ':(glob)*' | \
@@ -144,6 +144,7 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	 COVERWIDTH=$$coverwidth envsubst < $< > $@; \
 	else \
 	 echo not generating cover until $(@:.cover.tex=.pdf) complete >&2; \
+	 false; \
 	fi
 %.view: %.pdf %.cover.pdf %.cover.jpg
 	rm -f $+  # remove and rebuild to ensure Contents are complete
