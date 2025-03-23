@@ -1,6 +1,10 @@
 # bashisms in Makefile, cannot use plain sh
 SHELL := /bin/bash
 BUILD ?= xacpi
+# /var/tmp for pdfseparate
+# newer Debian systems use a tmpfs /tmp, and we need space more than speed
+# my files were coming out zero length, and until I ran strace, didn't know why
+TMPDIR ?= /var/tmp
 TIMESTAMP = $(shell date +%Y%m%d%H%M%S)
 # deal with potential spaces in path names (looking at you, ghostscript)
 # (better approach adapted from https://stackoverflow.com/a/67346778/493161)
@@ -179,9 +183,8 @@ kindle paperback letter:
 # affected pages.
 # 2025-03-22 fixed broken pdfseparate using superuser.com/a/1814879/56582
 %.whiteout.pdf: %.pdf .FORCE
-	tempdir=$$(mktemp -d); \
-	 pdftocairo -pdf $< $$tempdir/$(<F); \
-	 pdfseparate $$tempdir/$(<F) "$$tempdir/page.%08d.pdf"; \
+	tempdir=$$(mktemp -d -p $(TMPDIR)); \
+	 pdfseparate $< "$$tempdir/page.%08d.pdf"; \
 	 for page in $$tempdir/page.0*.pdf; do \
 	  echo processing $$page... >&2; \
 	  if [[ $(PAGES) = ALL || $(PAGES) = *$$(basename $$page)* ]]; then \
