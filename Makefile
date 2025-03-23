@@ -215,9 +215,14 @@ kindle paperback letter:
 japanese.pdf: evil\ test\ directory/japanese.tex
 	pdflatex "$<"
 evil: japanese.view
-%.js.disable: %.js
+%.disable: | %
 	# changes endlines to DOS \r\n so as to disable listings
-	# specifically for tinyseg.js, which has CJK characters
-	sed -i 's/$$/\r/' $<
+	# CR="carriage return"
+	# whirrrrr, DING! kids these days will likely never experience the
+	# joy of typing on an old mechanical typewriter...
+	#
+	# at first made specifically for tinyseg.js, which has CJK characters
+	sed -i 's/\r//' $|  # first remove any CRs so we don't double them up
+	sed -i 's/$$/\r/' $|  # now add a CR at each end of line
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 .FORCE:
