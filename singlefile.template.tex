@@ -9,8 +9,16 @@
 \usepackage{verbatim} % input a file verbatim, e.g., don't render as TeX
 \usepackage{listings} % source code listings
 \usepackage{xcolor}  % for colored syntax highlighting
+\usepackage[overlap, CJK]{ruby}  % enable Chinese/Japanese/Korean with ruby
+\usepackage{CJKulem}  % "ulem" package CJK characters
+\newenvironment{Japanese}{%
+\CJKfamily{min}%
+\CJKtilde  % not sure we want this
+\CJKnospace}{}
 \title{$CAPTION}
 \begin{document}
+\begin{CJK}{UTF8}{}
+\begin{Japanese}
 \maketitle
 \lstset{
     numbers=left,                % line numbers on the left
@@ -27,17 +35,13 @@
     linewidth=6.5in,             % max line length
     breakatwhitespace=false,     % breaks anywhere
     % now define some special character representations
-    literate={^^1b}{\textcolor{green}{\^{}[}}1
+    % show control characters and Latin1 in different color; UTF8 normal
+    literate={^^1b}{{\textcolor{green}{\^{}[}}}1
      {^^c2^^a9}{{\copyright}}2
-     {^^a9}{\copyright}1
+     {^^a9}{{\textcolor{green}{\copyright}}}1
 }
-\chapter{Listings}
-% fix section and subsection so that new pages are created in each case
-\let\realsection\section
-\renewcommand\section{\vfill\null\newpage\realsection}
-\let\realsubsection\subsection
-\renewcommand\subsection{\vfill\null\newpage\realsubsection}
-\subsection{test}
 \lstset{language=$LANGUAGE}
 \lstinputlisting{$FILEPATH}
+\end{Japanese}
+\end{CJK}
 \end{document}
