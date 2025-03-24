@@ -1,0 +1,48 @@
+% adapted from https://www.overleaf.com/learn/latex/Sections_and_chapters
+\documentclass{book}
+% sloppy or emergencystretch needed for markdown processor
+\sloppy  % helps READMEs and listings lines wrap
+\usepackage[letterpaper,portrait,margin=1in]{geometry}
+\usepackage{parskip}  % vertical spacing rather than indentation of paragraphs
+\usepackage{xstring}  % string length (\StrLen) for ifthenelse actions
+\usepackage[pipeTables,tableCaptions]{markdown}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{xcolor}
+\title{not a book}
+\author{someone}
+\date{\today}
+\begin{document}
+\maketitle
+\tableofcontents
+\lstset{
+    numbers=left,                % line numbers on the left
+    numberstyle=\small,          % style of line numbers
+    showstringspaces=false,      % do not show visible representation of spaces
+    stepnumber=1,                % show every line number
+    numbersep=5pt,               % gap between numbers and code
+    backgroundcolor=\color{white}, % background color
+    keywordstyle=\color{blue},   % keyword style
+    basicstyle=\ttfamily,        % code font and (optionally) size
+    frame=single,                % add a frame around the code
+    breaklines=true,             % break long lines
+    breakindent=0pt,             % don't indent broken part of lines
+    linewidth=6.5in,             % max line length
+    breakatwhitespace=false,     % breaks anywhere
+    % now define some special character representations
+    literate={^^1b}{\texttt{\textcolor{green}{\^{}[}}}1,
+}
+\chapter{Listings}
+% fix section and subsection so that new pages are created in each case
+\let\realsection\section
+\renewcommand\section{\vfill\null\newpage\realsection}
+\let\realsubsection\subsection
+\renewcommand\subsection{\vfill\null\newpage\realsubsection}
+\subsection{test}
+\lstset{language=C}
+% some files were giving me an encoding error, and pdflatex suggested:
+% Try adding \UseRawInputEncoding as the first line of the file
+% I tried adding it here but it had no effect, so commenting it out.
+%\UseRawInputEncoding
+\lstinputlisting[caption=test]{/usr/src/jcomeauictx/casperscript/tiff/config/ltmain.sh}
+\end{document}
