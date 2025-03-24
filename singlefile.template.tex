@@ -31,6 +31,7 @@
     breakatwhitespace=false,     % breaks anywhere
     % now define some special character representations
     literate={^^1b}{\texttt{\textcolor{green}{\^{}[}}}1,
+    %literate={^^a9}{\copyright}1,
 }
 \chapter{Listings}
 % fix section and subsection so that new pages are created in each case
@@ -43,6 +44,6 @@
 % some files were giving me an encoding error, and pdflatex suggested:
 % Try adding \UseRawInputEncoding as the first line of the file
 % I tried adding it here but it had no effect, so commenting it out.
-%\UseRawInputEncoding
-\lstinputlisting[caption=test]{/usr/src/jcomeauictx/casperscript/tiff/config/ltmain.sh}
+\lstinputlisting[caption=ltmain.sh]{/usr/src/jcomeauictx/casperscript/tiff/config/ltmain.sh}
+\lstinputlisting[caption=ft-hb.c]{/usr/src/jcomeauictx/casperscript/freetype/src/autofit/ft-hb.c}
 \end{document}
