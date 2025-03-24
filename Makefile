@@ -245,8 +245,8 @@ evil: japanese.view
 	 else \
 	  echo filename: $$filename; \
 	 fi; \
-	 envsubst < singlefile.template.tex > "$$(filename).single.tex"; \
-	 $(MAKE) "$$(filename).single.view"; \
+	 envsubst < singlefile.template.tex > "$$filename.single.tex"; \
+	 $(MAKE) "$$filename.single.view"; \
 	fi
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 .FORCE:
