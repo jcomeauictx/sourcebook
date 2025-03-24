@@ -227,5 +227,8 @@ evil: japanese.view
 	# at first made specifically for tinyseg.js, which has CJK characters
 	sed -i 's/\r//' $|  # first remove any CRs so we don't double them up
 	sed -i 's/$$/\r/' $|  # now add a CR at each end of line
+%.reenable: | %
+	# reverts %.disable
+	sed -i 's/\r//' $|
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 .FORCE:
