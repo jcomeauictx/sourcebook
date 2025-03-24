@@ -231,11 +231,15 @@ evil: japanese.view
 	# reverts %.disable
 	sed -i 's/\r//' $|
 %.single: | %
-	if [ -z "$$LISTING" ]; then \
+	@echo 'requisite: "$|", target: "$@", prefix: "$*"' >&2
+	@echo 'basename from prefix: "$(*F)"' >&2
+	@echo LISTING: "$(LISTING)", REPOPATH: "$(REPOPATH)" >&2
+	if [ -z "$(LISTING)" ]; then \
 	 $(MAKE) LISTING="$*" REPOPATH=. SUBDIR= "$@"; \
 	else \
-	 envsubst < singlefile.template.tex > "$(*F).tex"; \
-	 $(MAKE) "$(*F).view"; \
+	 filename=$$(basename "$@"); \
+	 envsubst < singlefile.template.tex > "$$(filename).single.tex"; \
+	 $(MAKE) "$$(filename).single.view"; \
 	fi
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 .FORCE:
