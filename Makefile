@@ -140,7 +140,7 @@ push:
 	pdflatex $<
 %.pdf: %.tex
 	# the || true lets us continue to create the cover
-	pdflatex -shell-escape -interaction nonstopmode $< || true
+	pdflatex -shell-escape -interaction nonstopmode "$<" || true
 $(REPONAME).letter.%.tex: letter.%.template.tex Makefile
 	envsubst < $< > $@
 $(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
@@ -170,7 +170,7 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	xpdf $<
 	display $*.cover.jpg
 %.view: %.pdf
-	xpdf $<
+	xpdf "$<"
 kindle paperback letter:
 	$(MAKE) BUILD=$(BUILD).$@ all
 # recipes to truncate lines that bleed into margins
@@ -182,6 +182,10 @@ kindle paperback letter:
 # pages before running pdunite. That way the bad print is only on the
 # affected pages.
 # 2025-03-22 fixed broken pdfseparate using superuser.com/a/1814879/56582
+# 2025-03-24 pdfunite does not work with 76000-odd pdf files, even if you
+#            `ulimit -s 65536` to raise ARG_MAX sufficiently. it gave 
+#            "Too many open files" and "Could not merge damaged documents"
+#            errors.
 %.whiteout.pdf: %.pdf .FORCE
 	tempdir=$$(mktemp -d -p $(TMPDIR)); \
 	 pdfseparate $< "$$tempdir/page.%08d.pdf"; \
@@ -238,15 +242,15 @@ evil: japanese.view
 	if [ -z "$(LISTING)" ]; then \
 	 $(MAKE) LISTING="$*" REPOPATH=. SUBDIR= "$@"; \
 	else \
-	 set -e; \
 	 filename=$$(basename "$@"); \
-	 if [ -z "$$filename" ]; then \
-	  false; \
-	 else \
-	  echo filename: $$filename; \
-	 fi; \
+	 echo filename: $$filename; \
 	 envsubst < singlefile.template.tex > "$$filename.single.tex"; \
-	 $(MAKE) "$$filename.single.view"; \
+	 pdflatex "$$filename.single.tex"; \
+	 xpdf "$$filename.single.pdf"; \
+	 true; \
 	fi
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
+singletest: \
+ ../casperscript/freetype/src/autofit/ft-hb.c.single \
+ ../casperscript/tiff/config/ltmain.sh.single
 .FORCE:
