@@ -11,7 +11,9 @@
     breaklines=true,             % break long lines
     breakindent=0pt,             % don't indent broken part of lines
     linewidth=6.5in,             % max line length
-    breakatwhitespace=false      % breaks anywhere
+    breakatwhitespace=false,     % breaks anywhere
+    % now define some special character representations
+    literate={^^1b}{\texttt{\textcolor{green}{\^{}[}}}1,  % show ESC as ^[
 }
 \chapter{Listings}
 % fix section and subsection so that new pages are created in each case
