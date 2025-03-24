@@ -242,7 +242,7 @@ evil: japanese.view
 	if [ -z "$(LISTING)" ]; then \
 	 $(MAKE) LISTING="$*" REPOPATH=. SUBDIR= "$@"; \
 	else \
-	 filename=$$(basename "$@"); \
+	 filename=$$(basename "$*"); \
 	 echo filename: $$filename; \
 	 envsubst < singlefile.template.tex > "$$filename.single.tex"; \
 	 pdflatex "$$filename.single.tex"; \
@@ -252,5 +252,6 @@ evil: japanese.view
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 singletest: \
  ../casperscript/freetype/src/autofit/ft-hb.c.single \
- ../casperscript/tiff/config/ltmain.sh.single
+ ../casperscript/tiff/config/ltmain.sh.single \
+ ../casperscript/zlib/ChangeLog.single
 .FORCE:
