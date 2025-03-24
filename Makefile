@@ -231,13 +231,20 @@ evil: japanese.view
 	# reverts %.disable
 	sed -i 's/\r//' $|
 %.single: | %
+	# tricky when spaces in filename
 	@echo 'requisite: "$|", target: "$@", prefix: "$*"' >&2
 	@echo 'basename from prefix: "$(*F)"' >&2
 	@echo LISTING: "$(LISTING)", REPOPATH: "$(REPOPATH)" >&2
 	if [ -z "$(LISTING)" ]; then \
 	 $(MAKE) LISTING="$*" REPOPATH=. SUBDIR= "$@"; \
 	else \
+	 set -e; \
 	 filename=$$(basename "$@"); \
+	 if [ -z "$$filename" ]; then \
+	  false; \
+	 else \
+	  echo filename: $$filename; \
+	 fi; \
 	 envsubst < singlefile.template.tex > "$$(filename).single.tex"; \
 	 $(MAKE) "$$(filename).single.view"; \
 	fi
