@@ -36,9 +36,13 @@
     breakatwhitespace=false,     % breaks anywhere
     % now define some special character representations
     % show control characters and Latin1 in different color; UTF8 normal
-    literate={^^1b}{{\textcolor{gray}{\^{}[}}}1
+    literate=%
+%    {^^e3^^81^^a6^^e3^^82^^8b^^e3^^80^^82}{to you}9
+%    {^^e6^^84^^9b^^e3^^81^^97}{Love}6
+%    {^^e6^^97^^a5^^e6^^9c^^ac}{Japan}}6
      {^^c2^^a9}{{\copyright}}2
      {^^a9}{{\textcolor{gray}{\copyright}}}1
+     {^^1b}{{\textcolor{gray}{\^{}[}}}1
 }
 \lstset{language=$LANGUAGE}
 \lstinputlisting{$FILEPATH}
