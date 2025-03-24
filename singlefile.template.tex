@@ -9,16 +9,16 @@
 \usepackage{verbatim} % input a file verbatim, e.g., don't render as TeX
 \usepackage{listings} % source code listings
 \usepackage{xcolor}  % for colored syntax highlighting
-\usepackage[overlap, CJK]{ruby}  % enable Chinese/Japanese/Korean with ruby
-\usepackage{CJKulem}  % "ulem" package CJK characters
-\newenvironment{Japanese}{%
-\CJKfamily{min}%
-\CJKtilde  % not sure we want this
-\CJKnospace}{}
+%\usepackage[overlap, CJK]{ruby}  % enable Chinese/Japanese/Korean with ruby
+%\usepackage{CJKulem}  % "ulem" package CJK characters
+%\newenvironment{Japanese}{%
+%\CJKfamily{min}%
+%\CJKtilde  % not sure we want this
+%\CJKnospace}{}
 \title{$CAPTION}
 \begin{document}
-\begin{CJK}{UTF8}{}
-\begin{Japanese}
+%\begin{CJK}{UTF8}{}
+%\begin{Japanese}
 \maketitle
 \lstset{
     numbers=left,                % line numbers on the left
@@ -46,6 +46,6 @@
 }
 \lstset{language=$LANGUAGE}
 \lstinputlisting{$FILEPATH}
-\end{Japanese}
-\end{CJK}
+%\end{Japanese}
+%\end{CJK}
 \end{document}
