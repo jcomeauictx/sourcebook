@@ -30,8 +30,9 @@
     linewidth=6.5in,             % max line length
     breakatwhitespace=false,     % breaks anywhere
     % now define some special character representations
-    literate={^^1b}{\texttt{\textcolor{green}{\^{}[}}}1,
-    %literate={^^a9}{\copyright}1,
+    literate={^^1b}{\texttt{\textcolor{green}{\^{}[}}}1
+     {^^c2^^a9}{{\copyright}}2
+     {^^a9}{\copyright}1
 }
 \chapter{Listings}
 % fix section and subsection so that new pages are created in each case
