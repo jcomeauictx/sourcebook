@@ -230,5 +230,12 @@ evil: japanese.view
 %.reenable: | %
 	# reverts %.disable
 	sed -i 's/\r//' $|
+%.single: | %
+	if [ -z "$$LISTING" ]; then \
+	 $(MAKE) LISTING="$*" REPOPATH=. SUBDIR= "$@"; \
+	else \
+	 envsubst < singlefile.template.tex > "$(*F).tex"; \
+	 $(MAKE) "$(*F).view"; \
+	fi
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 .FORCE:
