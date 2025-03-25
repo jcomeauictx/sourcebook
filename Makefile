@@ -21,12 +21,6 @@ LSREPO := $(LS) | \
  awk '$$1 == "lf." {for (i=2;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
 LSDIR := $(LS) ':(glob)*' | \
  awk '$$1 == "lf." {for (i=2;i<NF;i++) printf("%s%%20",$$i); print $$NF;}'
-# BORDER used by ImageMagick convert to whiteout anything in margins
-# change BGCOLOR to something noticeable like green for debugging
-BGCOLOR ?= white
-# to whiteout only certain pages:
-# `make PAGES='page0024.pdf page0123.pdf' doc.whiteout.pdf`
-PAGES ?= ALL
 TYPE := $(suffix $(BUILD))
 # valid BUILDTYPEs are letter, kindle, and paperback
 # this approach can be problematic if dots are in repo names
@@ -97,9 +91,10 @@ $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $| >> $@
 %.cover.jpg: %.cover.pdf
 	pdftoppm $< | ppmtojpeg > $@
-%.save: %.whiteout.pdf %.cover.pdf %.cover.jpg
+%.save: %.trimmed.pdf %.cover.pdf %.cover.jpg
 	mkdir -p $(HOME)/sourcebook
 	cp -f $+ $(HOME)/sourcebook/
+	xpdf $<
 $(REPONAME).%.subdir: %.subdir.template.tex
 	envsubst < $<
 	for file in $$(cd "$(REPOPATH)/$(SUBDIR)"; $(LSDIR)); do \
@@ -186,38 +181,14 @@ kindle paperback letter:
 #            `ulimit -s 65536` to raise ARG_MAX sufficiently. it gave 
 #            "Too many open files" and "Could not merge damaged documents"
 #            errors.
-%.whiteout.pdf: %.pdf .FORCE
-	tempdir=$$(mktemp -d -p $(TMPDIR)); \
-	 pdfseparate $< "$$tempdir/page.%08d.pdf"; \
-	 for page in $$tempdir/page.0*.pdf; do \
-	  echo processing $$page... >&2; \
-	  if [[ $(PAGES) = ALL || $(PAGES) = *$$(basename $$page)* ]]; then \
-	   echo converting $$page... >&2; \
-	   pdftops $$page; \
-	   sed -i -e '/^%%Copyright/r $(PWD)/clip.ps' $${page%%.pdf}.ps; \
-	   ps2pdf $${page%%.pdf}.ps $$page.withborder.pdf; \
-	  else \
-	   echo skipping page $$page... >&2; \
-	   mv $$page $$page.unchanged.withborder.pdf; \
-	  fi; \
-	 done; \
-	pdfunite $$tempdir/*.withborder.pdf $@
-	xpdf $@
-%.borders.pdf: %.pdf
-	tempdir=$$(mktemp -d); \
-	 pdfseparate $< $$tempdir/page%04d.pdf; \
-	 for page in $$tempdir/page*; do \
-	  convert $$page -shave $(BORDER)x$(BORDER) \
-	   -bordercolor $(BGCOLOR) \
-	   -border $(BORDER) \
-	   $$page.withborder.pdf; \
-	 done; \
-	pdfunite $$tempdir/*.withborder.pdf $@
+# 2025-03-25 realized that all that pdfseparate/pdfunite stuff was unnecessary;
+#            only need to inject clip.ps into the entire file contents.
+#            see `%.trimmed.pdf` recipe
 %.withborders.ps: %.ps
 	sed -e '/^%%Copyright/r $(PWD)/clip.ps' $< > $@
 %.ps: %.pdf
 	pdftops $< $@
-%.clipped.pdf: %.withborders.ps
+%.trimmed.pdf: %.withborders.ps
 	ps2pdf $< $@
 %.tdiff:  # compare templates to paperback
 	for ttype in bookstart cover intro license sources \
@@ -255,7 +226,6 @@ evil: japanese.view
 	 xpdf "$$filename.single.pdf"; \
 	 true; \
 	fi
-.PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 # you can "comment out" any of the following by removing the ".single" suffix
 singletest: \
  evil\ test\ directory/eurochars.txt.single \
@@ -265,4 +235,5 @@ singletest: \
  ../casperscript/tiff/config/ltmain.sh.single \
  ../casperscript/freetype/docs/reference/assets/javascripts/lunr/tinyseg.js \
 # leave this line here, and you can end all the above lines with a backslash
+.PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg %.trimmed.pdf
 .FORCE:
