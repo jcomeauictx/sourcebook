@@ -213,6 +213,12 @@ kindle paperback letter:
 	   $$page.withborder.pdf; \
 	 done; \
 	pdfunite $$tempdir/*.withborder.pdf $@
+%.withborders.ps: %.ps
+	sed -e '/^%%Copyright/r $(PWD)/clip.ps' $< > $@
+%.ps: %.pdf
+	pdftops $< $@
+%.clipped.pdf: %.withborders.ps
+	ps2pdf $< $@
 %.tdiff:  # compare templates to paperback
 	for ttype in bookstart cover intro license sources \
 	  source subdir trailer; do \
