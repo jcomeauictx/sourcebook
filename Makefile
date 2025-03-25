@@ -251,7 +251,8 @@ evil: japanese.view
 	fi
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg
 singletest: \
+ evil\ test\ directory/eurochars.txt.single \
+ ../casperscript/zlib/ChangeLog.single \
  ../casperscript/freetype/src/autofit/ft-hb.c.single \
- ../casperscript/tiff/config/ltmain.sh.single \
- ../casperscript/zlib/ChangeLog.single
+ ../casperscript/tiff/config/ltmain.sh.single
 .FORCE:
