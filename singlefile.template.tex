@@ -9,16 +9,10 @@
 \usepackage{verbatim} % input a file verbatim, e.g., don't render as TeX
 \usepackage{listings} % source code listings
 \usepackage{xcolor}  % for colored syntax highlighting
-%\usepackage[overlap, CJK]{ruby}  % enable Chinese/Japanese/Korean with ruby
-%\usepackage{CJKulem}  % "ulem" package CJK characters
-%\newenvironment{Japanese}{%
-%\CJKfamily{min}%
-%\CJKtilde  % not sure we want this
-%\CJKnospace}{}
+\usepackage{CJK}  % CJK characters
 \title{$CAPTION}
 \begin{document}
-%\begin{CJK}{UTF8}{}
-%\begin{Japanese}
+\begin{CJK}{UTF8}{}
 \maketitle
 \lstset{
     numbers=left,                % line numbers on the left
@@ -42,7 +36,7 @@
         {^^e3^^80^^82}{{.}}1  % hiragana ".", period
         {^^e6^^84^^9b}{{<}}1  % kanji for Love
         {^^e3^^81^^97}{{+}}1  % hiragana "shi"
-        {^^e6^^97^^a5}{{O}}1  % kanji for Sun
+        {^^e6^^97^^a5}{{\symbol{"65e5}}}1  % kanji for Sun
         {^^e6^^9c^^ac}{{R}}1  % kanji for Root
         {^^c2^^a9}{{\copyright}}1  % (C) in circle
         {^^c2^^bf}{{?`}}1  % upside down question mark
@@ -57,7 +51,6 @@
 }
 \lstset{language=$LANGUAGE}
 \lstinputlisting{$FILEPATH}
-%\end{Japanese}
-%\end{CJK}
+\end{CJK}
 \end{document}
 % vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
