@@ -12,6 +12,17 @@
     breakindent=0pt,             % don't indent broken part of lines
     linewidth=4.7in,             % max line length
     breakatwhitespace=false      % breaks anywhere
+    literate=%
+        {^^c2^^a9}{{\copyright}}1  % (C) in circle
+        {^^c2^^bf}{{?`}}1  % upside down question mark
+        {^^c3^^9f}{{\ss}}1  % eszett, 0xdf
+        {^^c3^^a4}{{\"a}}1  % a-umlaut, 0xe4
+        {^^c3^^ab}{{\"e}}1  % e-umlaut, 0xeb
+        {^^c3^^b6}{{\"o}}1  % o-umlaut, 0xf6
+        {^^c3^^b8}{{\o}}1  % norwegian o-slash, 0xf8
+        {^^a9}{{\textcolor{gray}{\copyright}}}1
+        {^^1b}{{\textcolor{gray}{\^{}[}}}1
+        {^^bf}{{\textcolor{gray}{?`}}}1
 }
 \chapter{Listings}
 % fix section and subsection so that new pages are created in each case
