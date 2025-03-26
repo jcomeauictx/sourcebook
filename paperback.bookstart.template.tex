@@ -8,6 +8,9 @@
 % the geometry package calls "bindingoffset".
 % NOTE: "twoside" should be automatic when using \documentclass{book}
 % NOTE: "margin" is shorthand for top, bottom, left, and right margins
+\usepackage{tocloft}  % for making more room for section numbers
+\setlength{\cftsecnumwidth}{3em}  % e.g. 1001.123
+\setlength{\cftsubsecnumwidth}{4.5em} % 100.1010.123
 \usepackage[papersize={6in,9in},
  margin=.5in,
  bindingoffset=.3in,

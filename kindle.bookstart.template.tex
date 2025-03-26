@@ -2,6 +2,9 @@
 \documentclass{book}
 % sloppy or emergencystretch needed for markdown processor
 \sloppy  % helps READMEs and listings lines wrap
+\usepackage{tocloft}  % for making more room for section numbers
+\setlength{\cftsecnumwidth}{3em}  % e.g. 1001.123
+\setlength{\cftsubsecnumwidth}{4.5em} % 100.1010.123
 \usepackage[paperwidth=6in, paperheight=9in,margin=0.5in]{geometry}
 \usepackage{parskip}  % vertical spacing rather than indentation of paragraphs
 \usepackage{xstring}  % string length (\StrLen) for ifthenelse actions
@@ -14,5 +17,5 @@
 \date{\today}
 \begin{document}
 \maketitle
-\pagestyle{empty}
+\pagestyle{empty}  % no page headers and footers on Kindle edition
 \tableofcontents\thispagestyle{empty}

@@ -2,16 +2,16 @@
 \documentclass{book}
 % sloppy or emergencystretch needed for markdown processor
 \sloppy  % helps READMEs and listings lines wrap
+\usepackage{tocloft}  % for making more room for section numbers
+\setlength{\cftsecnumwidth}{3em}  % e.g. 1001.123
+\setlength{\cftsubsecnumwidth}{4.5em} % 100.1010.123
 \usepackage[letterpaper,portrait,margin=1in]{geometry}
 \usepackage{parskip}  % vertical spacing rather than indentation of paragraphs
 \usepackage{xstring}  % string length (\StrLen) for ifthenelse actions
 \usepackage[pipeTables,tableCaptions]{markdown}
-\usepackage{verbatim}
-\usepackage{listings}
-\usepackage{xcolor}
-\usepackage{tocloft}  % for making more room for section numbers
-\setlength{\cftsecnumwidth}{3em}  % e.g. 1001.123
-\setlength{\cftsubsecnumwidth}{4.5em} % 100.1010.123
+\usepackage{verbatim}  % allow reading in files with \verbatiminput{filename}
+\usepackage{listings}  % for source code listings
+\usepackage{xcolor}  % for use of colored keywords etc.
 \title{$BOOKTITLE}
 \author{$AUTHOR}
 \date{\today}
