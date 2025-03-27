@@ -10,6 +10,7 @@
 \usepackage{listings} % source code listings
 \usepackage{xcolor}  % for colored syntax highlighting
 \usepackage{textcomp}  % for cents sign and other obscure characters
+\usepackage[T1]{fontenc}  % for guillemets and other obscure characters
 \usepackage{CJK}  % CJK characters
 %\renewcommand*{\ttdefault}{lmvtt}
 \author{jc@unternet.net}
@@ -53,6 +54,8 @@
         {^^c2^^a7}{{\S}}1  % section sign
         {^^c2^^a8}{{\textasciidieresis}}1  % umlaut
         {^^c2^^a9}{{\copyright}}1  % (C) in circle
+        {^^c2^^aa}{{\textordfeminine}}1  % superscript-a
+        {^^c2^^ab}{{\guillemotleft}}1  % euroquotes-left
         {^^c2^^bf}{{?`}}1  % upside down question mark
         {^^c3^^9f}{{\ss}}1  % eszett, 0xdf
         {^^c3^^a4}{{\"a}}1  % a-umlaut, 0xe4
@@ -72,7 +75,9 @@
         {^^a6}{{\textcolor{gray}{\textbrokenbar}}}1  % broken vertical bar
         {^^a7}{{\textcolor{gray}{\S}}}1  % section symbol
         {^^a8}{{\textcolor{gray}{\textasciidieresis}}}1  % umlaut
-        {^^a9}{{\textcolor{gray}{\copyright}}}1
+        {^^a9}{{\textcolor{gray}{\copyright}}}1  % copyright symbol
+        {^^aa}{{\textcolor{gray}{\textordfeminine}}}1  % superscript-a
+        {^^ab}{{\textcolor{gray}{\guillemotleft}}}1  % euroquotes left
         {^^bf}{{\textcolor{gray}{?`}}}1  % upside-down "?"
         {^^d7}{{\textcolor{gray}{\texttimes}}}1  % times symbol
         {^^df}{{\textcolor{gray}{\ss}}}1  % eszett
