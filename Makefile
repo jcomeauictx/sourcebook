@@ -238,7 +238,7 @@ singletest: \
 # leave this line here, and you can end all the above lines with a backslash
 eurochars.edit: evil\ test\ directory/eurochars.txt
 	xxd -p "$<" $@
-	vi $@
+	vi $@ singlefile.template.tex
 	xxd -r -p $@ "$<"
 	rm -f $@
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg %.trimmed.pdf
