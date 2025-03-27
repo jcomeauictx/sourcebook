@@ -101,3 +101,4 @@ rapidly.
     > buf_size = 2000000
     ```
 * [Notes on embedding CJK glyphs](http://cda.psych.uiuc.edu/latex_class_2014/cjkintro600.pdf)
+* [Comprehensive list of symbols](https://home.adelphi.edu/~tfoguel/latexsymbols.pdf)
