@@ -236,5 +236,10 @@ singletest: \
 #../casperscript/tiff/config/ltmain.sh.single \
 #../casperscript/freetype/docs/reference/assets/javascripts/lunr/tinyseg.js \
 # leave this line here, and you can end all the above lines with a backslash
+eurochars.edit: evil\ test\ directory/eurochars.txt
+	xxd -p "$<" $@
+	vi $@
+	xxd -r -p $@ "$<"
+	rm -f $@
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg %.trimmed.pdf
 .FORCE:
