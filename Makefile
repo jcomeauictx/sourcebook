@@ -232,11 +232,11 @@ singletest: \
  evil\ test\ directory/eurochars.txt.single \
  ../casperscript/contrib/pcl3/doc/gs-pcl3.1.single \
  evil\ test\ directory/japanese.tex.single \
-#../casperscript/zlib/ChangeLog.single \
-#../casperscript/freetype/src/autofit/ft-hb.c.single \
-#../casperscript/tiff/config/ltmain.sh.single \
-#../casperscript/freetype/docs/reference/assets/javascripts/lunr/tinyseg.js \
-# leave this line here, and you can end all the above lines with a backslash
+ ../casperscript/zlib/ChangeLog.single \
+ ../casperscript/freetype/src/autofit/ft-hb.c.single \
+ ../casperscript/tiff/config/ltmain.sh.single \
+ ../casperscript/freetype/docs/reference/assets/javascripts/lunr/tinyseg.js \
+  leave this line here, and you can end all the above lines with a backslash
 eurochars.edit: evil\ test\ directory/eurochars.txt
 	xxd -p "$<" $@
 	vi $@ singlefile.template.tex
