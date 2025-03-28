@@ -37,15 +37,60 @@
     % now define some special character representations
     % show control characters and Latin1 in different color; UTF8 normal
     literate=%
+        % latin-1 equivalents of the UTF-8
+        % and ASCII control sequences that may appear in some text files
+        {^^07}{{\textcolor{gray}{\^{}G}}}2  % BEL
+        {^^1b}{{\textcolor{gray}{\^{}[}}}1  % ESC
+        {^^a0}{{~}}1  % non-breaking space
+        {^^a1}{{\textcolor{gray}{!`}}}1  % upside down "!"
+        {^^a2}{{\textcolor{gray}{\textcent}}}1  % cents sign
+        {^^a3}{{\textcolor{gray}{\pounds}}}1  % pounds sterling sign
+        {^^a4}{{\textcolor{gray}{\textcurrency}}}1  % general currency sign
+        {^^a5}{{\textcolor{gray}{\textyen}}}1  % yen sign
+        {^^a6}{{\textcolor{gray}{\textbrokenbar}}}1  % broken vertical bar
+        {^^a7}{{\textcolor{gray}{\S}}}1  % section symbol
+        {^^a8}{{\textcolor{gray}{\textasciidieresis}}}1  % umlaut
+        {^^a9}{{\textcolor{gray}{\copyright}}}1  % copyright symbol
+        {^^aa}{{\textcolor{gray}{\textordfeminine}}}1  % a-superior
+        {^^ab}{{\textcolor{gray}{\guillemotleft}}}1  % euroquotes left
+        {^^ac}{{\textcolor{gray}{\textlnot}}}1  % logical not
+        {^^ad}{{\textcolor{gray}{\-}}}1  % soft hyphen
+        {^^ae}{{\textcolor{gray}{\textregistered}}}1  % registered trademark
+        {^^af}{{\textcolor{gray}{\textasciimacron}}}1  % "long" accent
+        {^^b0}{{\textcolor{gray}{\textdegree}}}1  % degree sign
+        {^^b1}{{\textcolor{gray}{\textpm}}}1  % plus-or-minus sign
+        {^^b2}{{\textcolor{gray}{\texttwosuperior}}}1  % 2-superior
+        {^^b3}{{\textcolor{gray}{\textthreesuperior}}}1  % 3-superior
+        {^^b4}{{\textcolor{gray}{\textasciiacute}}}1  % acute accent
+        {^^b5}{{\textcolor{gray}{\textmu}}}1  % greek letter mu
+        {^^b6}{{\textcolor{gray}{\P}}}1  % paragraph sign
+        {^^b7}{{\textcolor{gray}{\textperiodcentered}}}1  % middle "."
+        {^^b8}{{\textcolor{gray}{\c{}}}}1  % cedilla alone
+        {^^b9}{{\textcolor{gray}{\textonesuperior}}}1  % 0-superior
+        {^^ba}{{\textcolor{gray}{\textordmasculine}}}1  % o-superior
+        {^^bb}{{\textcolor{gray}{\guillemotright}}}1  % euroquotes right
+        {^^bc}{{\textcolor{gray}{\textonequarter}}}1  % 1/4
+        {^^bd}{{\textcolor{gray}{\textonehalf}}}1  % 1/2
+        {^^be}{{\textcolor{gray}{\textthreequarters}}}1  % 3/4
+        {^^bf}{{\textcolor{gray}{?`}}}1  % upside-down "?"
+        {^^c0}{{\textcolor{gray}{\`{A}}}}1  % A grave
+        {^^c1}{{\textcolor{gray}{\'{A}}}}1  % A acute
         {^^c2}{{\textcolor{gray}{\^{A}}}}1  % A cedilla
         {^^c3}{{\textcolor{gray}{\~{A}}}}1  % A tilde
-        {^^e3^^81^^a6}{{>}}1  % hiragana "te"
-        {^^e3^^82^^8b}{{U}}1  % hiragana "ru"
-        {^^e3^^80^^82}{{.}}1  % hiragana ".", period
-        {^^e6^^84^^9b}{{<}}1  % kanji for Love
-        {^^e3^^81^^97}{{+}}1  % hiragana "shi"
-        {^^e6^^97^^a5}{{\symbol{"65e5}}}1  % kanji for Sun
-        {^^e6^^9c^^ac}{{R}}1  % kanji for Root
+        {^^c4}{{\textcolor{gray}{\"{A}}}}1  % A umlaut
+        {^^c5}{{\textcolor{gray}{\AA}}}1  % A ring
+        {^^c6}{{\textcolor{gray}{\AE}}}1  % AE ligature
+        {^^c7}{{\textcolor{gray}{\c{C}}}}1  % C cedilla
+        {^^c8}{{\textcolor{gray}{\`{E}}}}1  % E grave
+        {^^c9}{{\textcolor{gray}{\'{E}}}}1  % E acute
+        {^^ca}{{\textcolor{gray}{\^{E}}}}1  % E circumflex
+        {^^cb}{{\textcolor{gray}{\"{E}}}}1  % E umlaut
+        {^^cc}{{\textcolor{gray}{\`{I}}}}1  % I grave
+        {^^cd}{{\textcolor{gray}{\'{I}}}}1  % I acute
+        {^^ce}{{\textcolor{gray}{\^{I}}}}1  % I circumflex
+        {^^cf}{{\textcolor{gray}{\"{I}}}}1  % I umlaut
+        {^^d7}{{\textcolor{gray}{\texttimes}}}1  % times symbol
+        {^^df}{{\textcolor{gray}{\ss}}}1  % eszett
         {^^c2^^a0}{{~}}1  % non-breaking space
         {^^c2^^a1}{{!`}}1  % upside down exclamation point
         {^^c2^^a2}{{\textcent}}1  % cents sign
@@ -99,58 +144,13 @@
         {^^c3^^ab}{{\"e}}1  % e-umlaut, 0xeb
         {^^c3^^b6}{{\"o}}1  % o-umlaut, 0xf6
         {^^c3^^b8}{{\o}}1  % norwegian o-slash, 0xf8
-        % latin-1 equivalents of the above
-        % and ASCII control sequences that may appear in some text files
-        {^^07}{{\textcolor{gray}{\^{}G}}}2  % BEL
-        {^^1b}{{\textcolor{gray}{\^{}[}}}1  % ESC
-        {^^a0}{{~}}1  % non-breaking space
-        {^^a1}{{\textcolor{gray}{!`}}}1  % upside down "!"
-        {^^a2}{{\textcolor{gray}{\textcent}}}1  % cents sign
-        {^^a3}{{\textcolor{gray}{\pounds}}}1  % pounds sterling sign
-        {^^a4}{{\textcolor{gray}{\textcurrency}}}1  % general currency sign
-        {^^a5}{{\textcolor{gray}{\textyen}}}1  % yen sign
-        {^^a6}{{\textcolor{gray}{\textbrokenbar}}}1  % broken vertical bar
-        {^^a7}{{\textcolor{gray}{\S}}}1  % section symbol
-        {^^a8}{{\textcolor{gray}{\textasciidieresis}}}1  % umlaut
-        {^^a9}{{\textcolor{gray}{\copyright}}}1  % copyright symbol
-        {^^aa}{{\textcolor{gray}{\textordfeminine}}}1  % a-superior
-        {^^ab}{{\textcolor{gray}{\guillemotleft}}}1  % euroquotes left
-        {^^ac}{{\textcolor{gray}{\textlnot}}}1  % logical not
-        {^^ad}{{\textcolor{gray}{\-}}}1  % soft hyphen
-        {^^ae}{{\textcolor{gray}{\textregistered}}}1  % registered trademark
-        {^^af}{{\textcolor{gray}{\textasciimacron}}}1  % "long" accent
-        {^^b0}{{\textcolor{gray}{\textdegree}}}1  % degree sign
-        {^^b1}{{\textcolor{gray}{\textpm}}}1  % plus-or-minus sign
-        {^^b2}{{\textcolor{gray}{\texttwosuperior}}}1  % 2-superior
-        {^^b3}{{\textcolor{gray}{\textthreesuperior}}}1  % 3-superior
-        {^^b4}{{\textcolor{gray}{\textasciiacute}}}1  % acute accent
-        {^^b5}{{\textcolor{gray}{\textmu}}}1  % greek letter mu
-        {^^b6}{{\textcolor{gray}{\P}}}1  % paragraph sign
-        {^^b7}{{\textcolor{gray}{\textperiodcentered}}}1  % middle "."
-        {^^b8}{{\textcolor{gray}{\c{}}}}1  % cedilla alone
-        {^^b9}{{\textcolor{gray}{\textonesuperior}}}1  % 0-superior
-        {^^ba}{{\textcolor{gray}{\textordmasculine}}}1  % o-superior
-        {^^bb}{{\textcolor{gray}{\guillemotright}}}1  % euroquotes right
-        {^^bc}{{\textcolor{gray}{\textonequarter}}}1  % 1/4
-        {^^bd}{{\textcolor{gray}{\textonehalf}}}1  % 1/2
-        {^^be}{{\textcolor{gray}{\textthreequarters}}}1  % 3/4
-        {^^bf}{{\textcolor{gray}{?`}}}1  % upside-down "?"
-        {^^c0}{{\textcolor{gray}{\`{A}}}}1  % A grave
-        {^^c1}{{\textcolor{gray}{\'{A}}}}1  % A acute
-        {^^c4}{{\textcolor{gray}{\"{A}}}}1  % A umlaut
-        {^^c5}{{\textcolor{gray}{\AA}}}1  % A ring
-        {^^c6}{{\textcolor{gray}{\AE}}}1  % AE ligature
-        {^^c7}{{\textcolor{gray}{\c{C}}}}1  % C cedilla
-        {^^c8}{{\textcolor{gray}{\`{E}}}}1  % E grave
-        {^^c9}{{\textcolor{gray}{\'{E}}}}1  % E acute
-        {^^ca}{{\textcolor{gray}{\^{E}}}}1  % E circumflex
-        {^^cb}{{\textcolor{gray}{\"{E}}}}1  % E umlaut
-        {^^cc}{{\textcolor{gray}{\`{I}}}}1  % I grave
-        {^^cd}{{\textcolor{gray}{\'{I}}}}1  % I acute
-        {^^ce}{{\textcolor{gray}{\^{I}}}}1  % I circumflex
-        {^^cf}{{\textcolor{gray}{\"{I}}}}1  % I umlaut
-        {^^d7}{{\textcolor{gray}{\texttimes}}}1  % times symbol
-        {^^df}{{\textcolor{gray}{\ss}}}1  % eszett
+        {^^e3^^81^^a6}{{>}}1  % hiragana "te"
+        {^^e3^^82^^8b}{{U}}1  % hiragana "ru"
+        {^^e3^^80^^82}{{.}}1  % hiragana ".", period
+        {^^e6^^84^^9b}{{<}}1  % kanji for Love
+        {^^e3^^81^^97}{{+}}1  % hiragana "shi"
+        {^^e6^^97^^a5}{{\symbol{"65e5}}}1  % kanji for Sun
+        {^^e6^^9c^^ac}{{R}}1  % kanji for Root
 }
 \lstset{language=$LANGUAGE}
 \lstinputlisting{$FILEPATH}

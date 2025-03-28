@@ -229,8 +229,8 @@ evil: japanese.view
 # you can "comment out" any of the following by removing the ".single" suffix
 singletest: \
  evil\ test\ directory/eurochars.txt.single \
-#../casperscript/contrib/pcl3/doc/gs-pcl3.1.single \
-#evil\ test\ directory/japanese.tex.single \
+ ../casperscript/contrib/pcl3/doc/gs-pcl3.1.single \
+ evil\ test\ directory/japanese.tex.single \
 #../casperscript/zlib/ChangeLog.single \
 #../casperscript/freetype/src/autofit/ft-hb.c.single \
 #../casperscript/tiff/config/ltmain.sh.single \
