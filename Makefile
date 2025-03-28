@@ -37,7 +37,7 @@ else ifeq ($(BUILDTYPE),paperback)
  BORDER ?= 50
 endif
 MAKE := make -s
-LATEX := xelatex  # pdflatex or xelatex
+LATEX := pdflatex  # pdflatex or xelatex
 REPONAME ?= $(BUILD:.$(BUILDTYPE)=)
 REPOPATH := ../$(REPONAME)
 BOOKTITLE ?= $(REPONAME)

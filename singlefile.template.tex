@@ -11,8 +11,7 @@
 \usepackage{xcolor}  % for colored syntax highlighting
 \usepackage{textcomp}  % for cents sign and other obscure characters
 \usepackage[T1]{fontenc}  % for guillemets and other obscure characters
-\usepackage{xeCJK}  % CJK characters
-\setCJKmainfont{IPAMincho}  % supports Japanese (at least)
+\usepackage{CJK}  % CJK characters
 \author{jc@unternet.net}
 \title{$CAPTION}
 \begin{document}
@@ -241,7 +240,12 @@
         {^^e6^^9c^^ac}{{R}}1  % kanji for Root
 }
 \lstset{language=$LANGUAGE}
+\begin{CJK}{UTF8}{}
 \char"25A1
+\newenvironment{Japanese}{CJKfamily{min}}{}
+\begin{Japanese}
 \lstinputlisting{$FILEPATH}
+\end{Japanese}
+\end{CJK}
 \end{document}
 % vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
