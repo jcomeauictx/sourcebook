@@ -116,7 +116,7 @@ $(REPONAME).%.listing: %.source.template.tex
 	 echo % $(FILENAME) is not a valid listing; \
 	fi
 clean:
-	rm -f *.aux *.log *.toc *.lua *.out *.err
+	rm -f *.aux *.log *.toc *.lua *.out *.err texput.*
 	rm -rf _markdown_*
 distclean: clean
 	rm -f *.pdf $(filter-out $(wildcard *.template.tex), $(wildcard *.tex))
