@@ -37,6 +37,7 @@ else ifeq ($(BUILDTYPE),paperback)
  BORDER ?= 50
 endif
 MAKE := make -s
+LATEX := xelatex  # pdflatex or xelatex
 REPONAME ?= $(BUILD:.$(BUILDTYPE)=)
 REPOPATH := ../$(REPONAME)
 BOOKTITLE ?= $(REPONAME)
@@ -132,10 +133,10 @@ push:
 	git push origin
 	git push githost
 %.cover.pdf: %.cover.tex
-	pdflatex $<
+	$(LATEX) $<
 %.pdf: %.tex
 	# the || true lets us continue to create the cover
-	pdflatex -shell-escape -interaction nonstopmode "$<" || true
+	$(LATEX) -shell-escape -interaction nonstopmode "$<" || true
 $(REPONAME).letter.%.tex: letter.%.template.tex Makefile
 	envsubst < $< > $@
 $(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
@@ -197,7 +198,7 @@ kindle paperback letter:
 	 diff $*.$$ttype.template.tex paperback.$$ttype.template.tex; \
 	done
 japanese.pdf: evil\ test\ directory/japanese.tex
-	pdflatex "$<"
+	$(LATEX) "$<"
 evil: japanese.view
 %.disable: | %
 	# changes endlines to DOS \r\n so as to disable listings
@@ -222,7 +223,7 @@ evil: japanese.view
 	 filename=$$(basename "$*"); \
 	 echo filename: $$filename; \
 	 envsubst < singlefile.template.tex > "$$filename.single.tex"; \
-	 pdflatex "$$filename.single.tex"; \
+	 $(LATEX) "$$filename.single.tex"; \
 	 xpdf "$$filename.single.pdf"; \
 	 true; \
 	fi

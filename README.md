@@ -102,3 +102,4 @@ rapidly.
     ```
 * [Notes on embedding CJK glyphs](http://cda.psych.uiuc.edu/latex_class_2014/cjkintro600.pdf)
 * [Comprehensive list of symbols](https://home.adelphi.edu/~tfoguel/latexsymbols.pdf)
+* If can't display CJK in listings, how about empty box? <https://stackoverflow.com/questions/18760943/character-code-of-unknown-character-character-e-g-square-or-question-mark-romb>

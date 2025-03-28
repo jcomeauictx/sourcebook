@@ -11,7 +11,7 @@
 \usepackage{xcolor}  % for colored syntax highlighting
 \usepackage{textcomp}  % for cents sign and other obscure characters
 \usepackage[T1]{fontenc}  % for guillemets and other obscure characters
-\usepackage{CJK}  % CJK characters
+\usepackage{CJK} \usepackage{CJKulem}  % CJK characters
 \author{jc@unternet.net}
 \title{$CAPTION}
 \begin{document}
@@ -235,16 +235,16 @@
         {^^e3^^82^^8b}{{U}}1  % hiragana "ru"
         {^^e3^^80^^82}{{.}}1  % hiragana ".", period
         {^^e6^^84^^9b}{{<}}1  % kanji for Love
-        {^^e3^^81^^97}{{\symbol{"3057}}}1  % hiragana "shi"
-        {^^e6^^97^^a5}{{\symbol{"65E5}}}1  % kanji for Sun
+        {^^e3^^81^^97}{{\char"E3\char"81\char"97}}1  % hiragana "shi"
+        {^^e6^^97^^a5}{{\symbol{"25A1}}}1  % kanji for Sun
         {^^e6^^9c^^ac}{{R}}1  % kanji for Root
 }
 \lstset{language=$LANGUAGE}
 \begin{CJK}{UTF8}{}
+\char"25A1
 \newenvironment{Japanese}{CJKfamily{min}}{}
 \begin{Japanese}
-\char"3057
-\symbol{"3057}
+\char"25A1
 \lstinputlisting{$FILEPATH}
 \end{Japanese}
 \end{CJK}
