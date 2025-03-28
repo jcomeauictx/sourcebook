@@ -231,17 +231,16 @@
         {^^c3^^bd}{{\'{y}}}1  % y acute
         {^^c3^^be}{{\th}}1  % thorn
         {^^c3^^bf}{{\"{y}}}1  % y umlaut
-        {^^e3^^81^^a6}{{>}}1  % hiragana "te"
-        {^^e3^^82^^8b}{{U}}1  % hiragana "ru"
+        {^^e3^^81^^a6}{{te}}2  % hiragana "te"
+        {^^e3^^82^^8b}{{ru}}2  % hiragana "ru"
         {^^e3^^80^^82}{{.}}1  % hiragana ".", period
-        {^^e6^^84^^9b}{{<}}1  % kanji for Love
-        {^^e3^^81^^97}{{\char"3057}}1  % hiragana "shi"
-        {^^e6^^97^^a5}{{\symbol{"25A1}}}1  % kanji for Sun
-        {^^e6^^9c^^ac}{{R}}1  % kanji for Root
+        {^^e6^^84^^9b}{{Love}}4  % kanji for Love
+        {^^e3^^81^^97}{{shi}}3  % hiragana "shi"
+        {^^e6^^97^^a5}{{Sun}}3  % kanji for Sun
+        {^^e6^^9c^^ac}{{Root}}4  % kanji for Root
 }
 \lstset{language=$LANGUAGE}
 \begin{CJK}{UTF8}{}
-\char"25A1
 \newenvironment{Japanese}{CJKfamily{min}}{}
 \begin{Japanese}
 \lstinputlisting{$FILEPATH}
