@@ -37,6 +37,8 @@
     % now define some special character representations
     % show control characters and Latin1 in different color; UTF8 normal
     literate=%
+        {^^c2}{{\textcolor{gray}{\^{A}}}}1  % A cedilla
+        {^^c3}{{\textcolor{gray}{\~{A}}}}1  % A tilde
         {^^e3^^81^^a6}{{>}}1  % hiragana "te"
         {^^e3^^82^^8b}{{U}}1  % hiragana "ru"
         {^^e3^^80^^82}{{.}}1  % hiragana ".", period
@@ -135,8 +137,6 @@
         {^^bf}{{\textcolor{gray}{?`}}}1  % upside-down "?"
         {^^c0}{{\textcolor{gray}{\`{A}}}}1  % A grave
         {^^c1}{{\textcolor{gray}{\'{A}}}}1  % A acute
-        {^^c2}{{\textcolor{gray}{\^{A}}}}1  % A cedilla
-        {^^c3}{{\textcolor{gray}{\~{A}}}}1  % A tilde
         {^^c4}{{\textcolor{gray}{\"{A}}}}1  % A umlaut
         {^^c5}{{\textcolor{gray}{\AA}}}1  % A ring
         {^^c6}{{\textcolor{gray}{\AE}}}1  % AE ligature
