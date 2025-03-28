@@ -16,7 +16,6 @@
 \author{jc@unternet.net}
 \title{$CAPTION}
 \begin{document}
-\begin{CJK}{UTF8}{}
 \maketitle
 \lstset{
     numbers=left,                % line numbers on the left
@@ -242,7 +241,11 @@
         {^^e6^^9c^^ac}{{R}}1  % kanji for Root
 }
 \lstset{language=$LANGUAGE}
+\begin{CJK}{UTF8}{}
+\newenvironment{Japanese}{CJKfamily{min}}{}
+\begin{Japanese}
 \lstinputlisting{$FILEPATH}
+\end{Japanese}
 \end{CJK}
 \end{document}
 % vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
