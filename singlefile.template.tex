@@ -12,7 +12,7 @@
 \usepackage{textcomp}  % for cents sign and other obscure characters
 \usepackage[T1]{fontenc}  % for guillemets and other obscure characters
 \usepackage{CJK}  % CJK characters
-%\renewcommand*{\ttdefault}{lmvtt}
+\newcommand{\HgShi}{\char"3057\relax}
 \author{jc@unternet.net}
 \title{$CAPTION}
 \begin{document}
@@ -236,14 +236,15 @@
         {^^e3^^82^^8b}{{U}}1  % hiragana "ru"
         {^^e3^^80^^82}{{.}}1  % hiragana ".", period
         {^^e6^^84^^9b}{{<}}1  % kanji for Love
-        {^^e3^^81^^97}{{+}}1  % hiragana "shi"
-        {^^e6^^97^^a5}{{\symbol{"65e5}}}1  % kanji for Sun
+        {^^e3^^81^^97}{{\HgShi}}1  % hiragana "shi"
+        {^^e6^^97^^a5}{{\char"65e5\relax}}1  % kanji for Sun
         {^^e6^^9c^^ac}{{R}}1  % kanji for Root
 }
 \lstset{language=$LANGUAGE}
 \begin{CJK}{UTF8}{}
 \newenvironment{Japanese}{CJKfamily{min}}{}
 \begin{Japanese}
+%\char"3057
 \lstinputlisting{$FILEPATH}
 \end{Japanese}
 \end{CJK}
