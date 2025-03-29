@@ -1,3 +1,8 @@
 \subsection{$CAPTION}
 \lstset{language=$LANGUAGE}
+\begin{CJK}{UTF8}{}
+\newenvironment{Japanese}{CJKfamily{min}}{}
+\begin{Japanese}
 \lstinputlisting[caption=$CAPTION]{$FILEPATH}
+\end{Japanese}
+\end{CJK}

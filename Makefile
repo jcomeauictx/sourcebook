@@ -229,6 +229,7 @@ evil: japanese.view
 	fi
 # you can "comment out" any of the following by removing the ".single" suffix
 singletest: \
+ ../casperscript/cups/libs/cups/utf8demo.txt.single \
  evil\ test\ directory/eurochars.txt.single \
  ../casperscript/contrib/pcl3/doc/gs-pcl3.1.single \
  evil\ test\ directory/japanese.tex.single \
@@ -236,7 +237,7 @@ singletest: \
  ../casperscript/freetype/src/autofit/ft-hb.c.single \
  ../casperscript/tiff/config/ltmain.sh.single \
  ../casperscript/freetype/docs/reference/assets/javascripts/lunr/tinyseg.js \
-  leave this line here, and you can end all the above lines with a backslash
+# leave this line here, and you can end all the above lines with a backslash
 eurochars.edit: evil\ test\ directory/eurochars.txt
 	xxd -p "$<" $@
 	vi $@ singlefile.template.tex
