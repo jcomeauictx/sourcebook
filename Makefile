@@ -138,7 +138,19 @@ push:
 	# the || true lets us continue to create the cover
 	$(LATEX) -shell-escape -interaction nonstopmode "$<" || true
 $(REPONAME).letter.%.tex: letter.%.template.tex Makefile
-	envsubst < $< > $@
+	# prevent incomplete cover code from being generated
+	if [ "$*" != "cover" ]; then \
+	 envsubst < $< > $@; \
+	elif [ -s "$(@:.cover.tex=.pdf)" ]; then \
+	 pages=$$(pdfinfo $(@:.cover.tex=.pdf) | \
+	  awk '$$1 ~ /^Pages:/ {print $$2}'); \
+	 coverwidth=$$(printf %.03f $$(echo "$$pages*.00225+17.25" | bc)); \
+	 echo '*****CHECK*****' pages $$pages coverwidth $$coverwidth >&2; \
+	 COVERWIDTH=$$coverwidth envsubst < $< > $@; \
+	else \
+	 echo not generating cover until $(@:.cover.tex=.pdf) complete >&2; \
+	 false; \
+	fi
 $(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
 	envsubst < $< > $@
 $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
