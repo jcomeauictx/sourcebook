@@ -202,7 +202,7 @@ kindle paperback letter:
 %.ps: %.pdf
 	pdftops $< $@
 %.trimmed.pdf: %.withborders.ps
-	ps2pdf $< $@
+	ps2pdf13 $< $@
 %.tdiff:  # compare templates to paperback
 	for ttype in bookstart cover intro license sources \
 	  source subdir trailer; do \
