@@ -176,7 +176,7 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	{ $(MAKE) $+ 2>&1 1>&3 3>&- | tee $(@:.view=.make.err); } \
 	 3>&1 1>&2 | tee $(@:.view=.make.log)
 	xpdf $<
-	display $*.cover.jpg
+	xpdf $*.cover.pdf
 %.view: %.pdf
 	xpdf "$<"
 kindle paperback letter:
