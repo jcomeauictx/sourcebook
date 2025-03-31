@@ -4,10 +4,16 @@ A project to automate the process of making a book out of a git repository
 
 At the start, it just printed up some numbered source files for taking to a
 coffeeshop and doing some offline coding. Now it builds entire books, ready
-for upload to Amazon Kindle Direct Publishing (KDP).
+for upload to Amazon Kindle Direct Publishing (KDP). (NOTE: after a very
+unpleasant and nonsensical email exchange with Amazon's "Content Review" team,
+wherein they accused me of publishing my `xacpi` code elsewhere, and not getting
+John Comeau's permission to publish `sourcebook`, I have taken my business
+to Leanpub, Lulu, and IngramSpark. If you want the Amazon-specific code,
+`git checkout amazon`.)
 
-DeepSeek gave me the first few lines of tex code, and since then it has grown
-rapidly.
+DeepSeek gave me the first few lines of TeX code, and since then it has grown
+rapidly. I don't believe any of DeepSeek's or Grok's code remains in the
+current codebase, but there may be some remnants.
 
 # developer's notes
 * [including markdown with `\markdownInput{filename}`](https://www.overleaf.com/learn/how-to/Writing_Markdown_in_LaTeX_Documents)
