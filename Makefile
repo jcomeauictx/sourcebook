@@ -53,6 +53,9 @@ SECTION := $(subst _,\_,$(SUBDIR))
 PARTS := $(BUILD).bookstart.tex $(BUILD).intro.tex $(BUILD).license.tex
 PARTS += $(BUILD).sources.tex
 FINAL_PART := $(BUILD).trailer.tex
+# tex files we don't want distclean to wipe out
+TEX_KEEPERS := $(wildcard *.template.tex)
+TEX_KEEPERS += charmapping.tex endpage.tex
 # mapping suffixes to languages
 .sh := bash
 .html := HTML
@@ -120,7 +123,7 @@ clean:
 	rm -f *.aux *.log *.toc *.lua *.out *.err texput.*
 	rm -rf _markdown_*
 distclean: clean
-	rm -f *.pdf $(filter-out $(wildcard *.template.tex), $(wildcard *.tex))
+	rm -f *.pdf $(filter-out $(TEX_KEEPERS), $(wildcard *.tex))
 	rm -f *.jpg
 env:
 	echo SHOWENV=$(SHOWENV) >&2; \
