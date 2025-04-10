@@ -1,0 +1,10 @@
+% force empty final page if book ends on odd page
+% for ingramspark.com, although they'll tack one on themselves if necessary
+% https://tex.stackexchange.com/a/19689/215508
+\AtEndDocument{
+    \clearpage
+    \ifodd\value{page}\else
+        \thispagestyle{empty}%
+        \hbox{}\newpage
+    \fi
+}
