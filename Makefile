@@ -239,6 +239,21 @@ evil: japanese.view
 	 xpdf "$$filename.single.pdf"; \
 	 true; \
 	fi
+%.ucs: | %
+	# tricky when spaces in filename
+	@echo 'requisite: "$|", target: "$@", prefix: "$*"' >&2
+	@echo 'basename from prefix: "$(*F)"' >&2
+	@echo LISTING: "$(LISTING)", REPOPATH: "$(REPOPATH)" >&2
+	if [ -z "$(LISTING)" ]; then \
+	 $(MAKE) LISTING="$*" REPOPATH=. SUBDIR= "$@"; \
+	else \
+	 filename=$$(basename "$*"); \
+	 echo filename: $$filename; \
+	 envsubst < singlefile_ucs.template.tex > "$$filename.single.tex"; \
+	 $(LATEX) "$$filename.single.tex"; \
+	 xpdf "$$filename.single.pdf"; \
+	 true; \
+	fi
 # you can "comment out" any of the following by removing the ".single" suffix
 singletest: \
  ../casperscript/cups/libs/cups/utf8demo.txt.single \
