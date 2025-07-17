@@ -156,6 +156,21 @@ $(REPONAME).letter.%.tex: letter.%.template.tex Makefile
 	 echo not generating cover until $(@:.cover.tex=.pdf) complete >&2; \
 	 false; \
 	fi
+$(REPONAME).letter.%.tex: default.%.template.tex Makefile
+	# prevent incomplete cover code from being generated
+	@echo using default $* template since letter has none specific to $*
+	if [ "$*" != "cover" ]; then \
+	 envsubst < $< > $@; \
+	elif [ -s "$(@:.cover.tex=.pdf)" ]; then \
+	 pages=$$(pdfinfo $(@:.cover.tex=.pdf) | \
+	  awk '$$1 ~ /^Pages:/ {print $$2}'); \
+	 coverwidth=$$(printf %.03f $$(echo "$$pages*.00225+17.25" | bc)); \
+	 echo '*****CHECK*****' pages $$pages coverwidth $$coverwidth >&2; \
+	 COVERWIDTH=$$coverwidth envsubst < $< > $@; \
+	else \
+	 echo not generating cover until $(@:.cover.tex=.pdf) complete >&2; \
+	 false; \
+	fi
 $(REPONAME).kindle.%.tex: kindle.%.template.tex Makefile
 	envsubst < $< > $@
 $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
