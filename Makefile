@@ -88,7 +88,7 @@ else
 	export $(.VARIABLES)
 endif
 default: letter
-all: env $(BUILD).view $(BUILD).save
+all: env $(BUILD).again $(BUILD).view $(BUILD).save
 $(BUILD).tex: $(PARTS) | $(FINAL_PART)
 	cat $+ > $@
 	for subdir in $(SUBDIRS); do \
@@ -172,9 +172,18 @@ $(REPONAME).paperback.%.tex: paperback.%.template.tex Makefile
 	 echo not generating cover until $(@:.cover.tex=.pdf) complete >&2; \
 	 false; \
 	fi
-%.view: %.pdf %.cover.pdf %.cover.jpg
-	rm -f $+  # remove and rebuild to ensure Contents are complete
+%.again: %.pdf %.cover.pdf %.cover.jpg
+	# remove and rebuild to ensure Contents are complete
 	mv -f $*.log $*.$(TIMESTAMP).log  # save first run's log to analyze
+	rm -f $+
+	# the following inscrutable mess stolen from noosepapers, in turn
+	# stolen from somewhere on stackoverflow
+	set -euxo pipefail; \
+	{ $(MAKE) $+ 2>&1 1>&3 3>&- | tee $(@:.again=.make.err); } \
+	 3>&1 1>&2 | tee $(@:.again=.make.log)
+%.view: %.pdf %.cover.pdf %.cover.jpg
+	# remove and rebuild to ensure page numbers match TOC
+	rm -f $+
 	# the following inscrutable mess stolen from noosepapers, in turn
 	# stolen from somewhere on stackoverflow
 	set -euxo pipefail; \
