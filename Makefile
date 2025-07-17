@@ -46,6 +46,8 @@ ifeq ($(REPONAME),SATsign)
 else
  AUTHOR ?= John Comeau
 endif
+REVISION ?= $(shell cd $(REPOPATH) && \
+ git show --pretty='Revision date: %ci, commit %h' | head -n 1)
 PUBLISHER ?= lotecnotec press
 SUBDIRS ?= $(sort $(dir $(shell cd $(REPOPATH) && $(LSREPO))))
 SUBDIR ?=
@@ -81,7 +83,7 @@ LANGUAGE := $(or $($(SUFFIX)),$($(FILENAME)))
 ifeq ($(SHOWENV),)
 	# not exporting all globals---but at least those needed by templates
 	export REPONAME AUTHOR PUBLISHER BOOKTITLE LANGUAGE LISTING \
-	 FILEPATH SECTION CAPTION
+	 FILEPATH SECTION CAPTION REVISION
 else
 	export $(.VARIABLES)
 endif
