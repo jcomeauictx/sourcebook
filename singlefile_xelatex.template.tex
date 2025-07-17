@@ -1,0 +1,44 @@
+% adapted from https://www.overleaf.com/learn/latex/Sections_and_chapters
+\documentclass{article}
+% sloppy or emergencystretch needed for markdown processor
+\sloppy  % helps READMEs and listings lines wrap
+\usepackage[letterpaper,portrait,margin=1in]{geometry}
+\usepackage{fontspec}  % specify fonts to use
+\setmainfont{Times New Roman}  % suggested by Claude
+\setmonofont{Noto Sans Mono CJK JP}  % ditto
+\usepackage{parskip}  % vertical spacing rather than indentation of paragraphs
+\usepackage{xstring}  % string length (\StrLen) for ifthenelse actions
+\usepackage[pipeTables,tableCaptions]{markdown}
+\usepackage{verbatim} % input a file verbatim, e.g., don't render as TeX
+\usepackage{listings} % source code listings
+\usepackage{xcolor}  % for colored syntax highlighting
+\usepackage{textcomp}  % for cents sign and other obscure characters
+\usepackage[T1]{fontenc}  % for guillemets and other obscure characters
+%\usepackage{CJK}  % CJK characters
+\author{jc@unternet.net}
+\title{$CAPTION}
+\begin{document}
+\maketitle
+\lstset{
+    numbers=left,                % line numbers on the left
+    numberstyle=\small,          % style of line numbers
+    showstringspaces=false,      % do not show visible representation of spaces
+    stepnumber=1,                % show every line number
+    numbersep=5pt,               % gap between numbers and code
+    backgroundcolor=\color{white}, % background color
+    keywordstyle=\color{blue},   % keyword style
+    frame=single,                % add a frame around the code
+    breaklines=true,             % break long lines
+    breakindent=0pt,             % don't indent broken part of lines
+    linewidth=6.5in,             % max line length
+    breakatwhitespace=false,     % breaks anywhere
+    basicstyle=\ttfamily,        % not necessarily cmtt10
+    extendedchars=true,          % use all possible characters
+}
+\input{charmapping.tex}
+\lstset{language=$LANGUAGE}
+%\begin{CJK}{UTF8}{}
+\lstinputlisting{$FILEPATH}
+%\end{CJK}
+\end{document}
+% vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
