@@ -47,7 +47,7 @@ else
  AUTHOR ?= John Comeau
 endif
 REVISION ?= $(shell cd $(REPOPATH) && \
- git show --pretty='Revision date: %ci, commit %h' | head -n 1)
+ git show --pretty='revision date: %ci, commit %h' | head -n 1)
 PUBLISHER ?= lotecnotec press
 SUBDIRS ?= $(sort $(dir $(shell cd $(REPOPATH) && $(LSREPO))))
 SUBDIR ?=
