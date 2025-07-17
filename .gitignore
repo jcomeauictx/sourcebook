@@ -1,0 +1,10 @@
+!*.template.tex
+*.tex
+_markdown*
+*.log
+*.err
+*.pdf
+*.toc
+*.aux
+*.lua
+*.jpg
