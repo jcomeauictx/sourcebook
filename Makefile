@@ -299,5 +299,7 @@ eurochars.edit: evil\ test\ directory/eurochars.txt
 	vi $@ singlefile.template.tex
 	xxd -r -p $@ "$<"
 	rm -f $@
+kindle.% letter.% paperback.%: | default.%
+	ln -s $| $@
 .PRECIOUS: %.pdf %.cover.tex %.cover.pdf %.cover.jpg %.trimmed.pdf
 .FORCE:
