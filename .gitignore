@@ -1,7 +1,16 @@
+*.tex
+# negated patterns must *follow* regular pattern
 !charmapping.tex
 !endpage.tex
 !*.template.tex
-*.tex
+kindle.source.template.tex
+kindle.subdir.template.tex
+kindle.trailer.template.tex
+letter.subdir.template.tex
+letter.trailer.template.tex
+paperback.source.template.tex
+paperback.subdir.template.tex
+paperback.trailer.template.tex
 _markdown*
 *.log
 *.err
