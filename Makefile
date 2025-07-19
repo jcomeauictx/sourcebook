@@ -293,7 +293,8 @@ singletest: \
  ../casperscript/freetype/src/autofit/ft-hb.c.single \
  ../casperscript/tiff/config/ltmain.sh.single \
  ../casperscript/freetype/docs/reference/assets/javascripts/lunr/tinyseg.js \
-# leave this line here, and you can end all the above lines with a backslash
+ ../casperscript/toolbin/Acrobat2Tiff/Acrobat2Tiff/bin/Release/Acrobat2Tiff.xml.single \
+# leave this comment here, and you can end all the above lines with a backslash
 eurochars.edit: evil\ test\ directory/eurochars.txt
 	xxd -p "$<" $@
 	vi $@ singlefile.template.tex
