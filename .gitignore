@@ -2,6 +2,7 @@
 # negated patterns must *follow* regular pattern
 !charmapping.tex
 !endpage.tex
+!dumpchars.tex
 !*.template.tex
 kindle.source.template.tex
 kindle.subdir.template.tex

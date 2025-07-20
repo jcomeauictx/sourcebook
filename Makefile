@@ -57,7 +57,7 @@ PARTS += $(BUILD).sources.tex
 FINAL_PART := $(BUILD).trailer.tex
 # tex files we don't want distclean to wipe out
 TEX_KEEPERS := $(wildcard *.template.tex)
-TEX_KEEPERS += charmapping.tex endpage.tex
+TEX_KEEPERS += charmapping.tex endpage.tex dumpchars.tex
 # mapping suffixes to languages
 .sh := bash
 .html := HTML

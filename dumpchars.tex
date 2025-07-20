@@ -1,0 +1,12 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\begin{document}
+\makeatletter
+\count255=0
+\loop
+  \ifnum\count255<256
+    \char\count255\space(\the\count255)
+    \advance\count255 by 1
+\repeat
+\makeatother
+\end{document}
